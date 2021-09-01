@@ -10,27 +10,40 @@ import java.util.List;
  */
 public class OrderItem {
 
-	
 	/** 注文商品ID */
 	private Integer id;
-	
+
 	/** 商品ID */
 	private Integer itemId;
-	
+
 	/** 注文ID */
 	private Integer orderId;
-	
+
 	/** 数量 */
 	private Integer quantity;
-	
-	/**　サイズ */
+
+	/** サイズ */
 	private Character size;
-	
+
 	/** 商品 */
 	private Item item;
-	
+
 	/** 注文トッピング */
 	private List<OrderTopping> orderToppingList;
+
+	public OrderItem() {
+	}
+
+	public OrderItem(Integer id, Integer itemId, Integer orderId, Integer quantity, Character size, Item item,
+			List<OrderTopping> orderToppingList) {
+		this.id = id;
+		this.itemId = itemId;
+		this.orderId = orderId;
+		this.quantity = quantity;
+		this.size = size;
+		this.item = item;
+		this.orderToppingList = orderToppingList;
+	}
 
 	public Integer getId() {
 		return id;
