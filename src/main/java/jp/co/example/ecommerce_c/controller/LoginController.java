@@ -33,9 +33,9 @@ public class LoginController {
 	 * 
 	 * @return ログイン画面
 	 */
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String toLogin() {
-		return "administrator/login";
+		return "login";
 	}
 	
 	
