@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +24,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="item_list_pizza.html"> <!-- 企業ロゴ --> <img
+					<a class="navbar-brand" href="item_list_pizza.html" th:href="@{//showItem/showItemList}"> <!-- 企業ロゴ --> <img
 						alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
 					</a>
 				</div>
@@ -45,22 +45,22 @@
 		<div class="row">
 			<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 				<div class="well">
-					<form method="post" action="item_list_pizza.html" th:action="@{/login}" th:object="${loginForm}">
+					<form method="post" action="item_list_pizza.html" th:action="@{/login/login_user}" th:object="${loginForm}">
 						<fieldset>
 							<legend>
 								ログイン
 							</legend>
 							<label
-									class="control-label" style="color: red" for="inputError">メールアドレス、またはパスワードが間違っています</label>
+									class="control-label" style="color: red" for="inputError" th:text="${errorMessage}">メールアドレス、またはパスワードが間違っています</label>
 							<div class="form-group">
 								<label for="inputEmail">メールアドレス:</label>
 								<input type="text" id="inputEmail" class="form-control"
-									placeholder="Email">
+									placeholder="Email" name="email" th:field="*{email}">
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>
 								<input type="text" id="inputPassword" class="form-control"
-									placeholder="Password">
+									placeholder="Password" name="password" th:field="*{password}">
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">ログイン</button>

@@ -49,15 +49,15 @@ public class UserRepository {
 	 * @param password パスワード
 	 * @return 利用者情報 存在しない場合はnullを返します
 	 */
-	public User findByMailAddressAndPassword(String mailAddress, String password) {
+	public User findByMailAddressAndPassword(String email, String password) {
 		String sql = "SELECT id,name, email, password, zipcode, address, telephone FROM users where email=:email and password=:password";
 		
-		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password",password);
-		List<User> administratorList = template.query(sql, param, USER_ROW_MAPPER);
-		if (administratorList.size() == 0) {
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password",password);
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		if (userList.size() == 0) {
 			return null;
 		}
-		return administratorList.get(0);
+		return userList.get(0);
 	}
 	
 
