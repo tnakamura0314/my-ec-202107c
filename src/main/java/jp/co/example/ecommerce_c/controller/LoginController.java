@@ -56,5 +56,8 @@ public class LoginController {
 		session.setAttribute("userName", user.getName());
 		return "forward:/showItem/showItemList";
 	}
+	
+//　通常のログインは完成
+//　6.注文確認画面を表示後のログインは後ほど実装
 
 }
