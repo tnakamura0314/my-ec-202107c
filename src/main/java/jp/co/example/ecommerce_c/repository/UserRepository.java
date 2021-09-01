@@ -1,8 +1,11 @@
 package jp.co.example.ecommerce_c.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -49,6 +52,22 @@ public class UserRepository {
 		insertSql.append("INSERT INTO users(name,email,password,zipcode,address,telephone)");
 		insertSql.append(" VALUES(:name,:email,:password,:zipcode,:address,:telephone);");
 		template.update(insertSql.toString(), param);
+	}
+	
+	/**
+	 * メールアドレスからユーザー情報を取得します.
+	 * 
+	 * @param email メールアドレス
+	 * @return ユーザー情報 存在しない場合はnullを返します
+	 */
+	public User findByMailAddress(String email) {
+		String sql = "select id,name,email,password,zipcode,address,telephone from users where email=:email;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		if (userList.size() == 0) {
+			return null;
+		}
+		return userList.get(0);
 	}
 
 }
