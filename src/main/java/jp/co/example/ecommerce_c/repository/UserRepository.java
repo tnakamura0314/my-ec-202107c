@@ -42,7 +42,7 @@ public class UserRepository {
 	
 	
 	/**
-	 * メールアドレスと和スワードから利用者情報を取得します.
+	 * メールアドレスとパスワードから利用者情報を取得します.
 	 * 
 	 * @param mailAddress メールアドレス
 	 * @param password パスワード

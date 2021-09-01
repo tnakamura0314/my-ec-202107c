@@ -2,13 +2,13 @@ package jp.co.example.ecommerce_c.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_c.domain.User;
 import jp.co.example.ecommerce_c.form.LoginForm;
 import jp.co.example.ecommerce_c.service.LoginService;
 
@@ -48,7 +48,7 @@ public class LoginController {
 	 */
 	@RequestMapping("/login_user")
 	public String login_user(LoginForm form, BindingResult result) {
-		User user = (User) loginService.login(form.getEmail(), form.getPassword());
+		User user = loginService.login(form.getEmail(), form.getPassword());
 		if(user == null) {
 			result.addError(new ObjectError("", "メールアドレスまたはパスワードが不正です。"));
 			return toLogin();
