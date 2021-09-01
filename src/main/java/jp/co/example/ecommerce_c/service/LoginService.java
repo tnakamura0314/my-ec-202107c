@@ -1,5 +1,6 @@
 package jp.co.example.ecommerce_c.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +17,12 @@ import jp.co.example.ecommerce_c.repository.UserRepository;
 @Transactional
 public class LoginService {
 	
+	@Autowired
+	private UserRepository userRepository;
+	
 	public User login(String email, String password) {
-		User user = UserRepository.findByMailAddress(email);
-		// パスワード一致チェック
-		if(passwordEncoder.matches(password, user.getPassword())) {
-			return user;
-		}
-		return null;
+		User user = userRepository.findByMailAddressAndPassword(email, password);
+		return user;
 	}
 
 }
