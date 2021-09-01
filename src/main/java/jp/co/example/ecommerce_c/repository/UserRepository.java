@@ -40,6 +40,26 @@ public class UserRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	
+	
+	/**
+	 * メールアドレスとパスワードから利用者情報を取得します.
+	 * 
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return 利用者情報 存在しない場合はnullを返します
+	 */
+	public User findByMailAddressAndPassword(String mailAddress, String password) {
+		String sql = "SELECT id,name, email, password, zipcode, address, telephone FROM users where email=:email and password=:password";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password",password);
+		List<User> administratorList = template.query(sql, param, USER_ROW_MAPPER);
+		if (administratorList.size() == 0) {
+			return null;
+		}
+		return administratorList.get(0);
+	}
+	
 
 	/**
 	 * 新規ユーザーをテーブルに挿入する
