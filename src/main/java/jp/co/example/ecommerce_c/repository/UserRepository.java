@@ -2,7 +2,9 @@ package jp.co.example.ecommerce_c.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_c.domain.User;
@@ -20,7 +22,7 @@ public class UserRepository {
 	 * userオブジェクトを生成するローマッパー.
 	 */
 	private static final RowMapper<User> USER_ROW_MAPPER = (rs, i) -> {
-	
+
 		User user = new User();
 		user.setId(rs.getInt("id"));
 		user.setName(rs.getString("name"));
@@ -29,11 +31,24 @@ public class UserRepository {
 		user.setZipcode(rs.getString("zipcode"));
 		user.setAddress(rs.getString("address"));
 		user.setTelephone(rs.getString("telephone"));
-		
+
 		return user;
 	};
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+
+	/**
+	 * 新規ユーザーをテーブルに挿入する
+	 * 
+	 * @param 登録するユーザー情報
+	 */
+	public void insert(User user) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+		StringBuilder insertSql = new StringBuilder();
+		insertSql.append("INSERT INTO users(name,email,password,zipcode,address,telephone)");
+		insertSql.append(" VALUES(:name,:email,:password,:zipcode,:address,:telephone);");
+		template.update(insertSql.toString(), param);
+	}
 
 }
