@@ -3,6 +3,7 @@ package jp.co.example.ecommerce_c.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_c.domain.OrderTopping;
 
@@ -12,6 +13,7 @@ import jp.co.example.ecommerce_c.domain.OrderTopping;
  * @author nakamuratomoya
  *
  */
+@Repository
 public class OrderToppingRepository {
 
 	@Autowired
