@@ -19,8 +19,9 @@ public class LogoutController {
 	@Autowired
 	private HttpSession session;
 	
-	@RequestMapping(value = "/toLogout")
+	@RequestMapping("/toLogout")
 	public String toLogout() {
+		// セッションの切断
 		session.invalidate();
 		return "item_list_toy";
 	}
