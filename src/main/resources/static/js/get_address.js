@@ -7,7 +7,7 @@ $(function(){
 	// 「住所検索」ボタンクリックで非同期処理開始
 	$(document).on('click', '#get_address_btn', function(){
 		$.ajax({
-			url: 'http://zipcoda.net/api',	// 送信先WebAPIのURL
+			url: 'https://zipcoda.net/api',	// 送信先WebAPIのURL
 			dataType: 'jsonp',	// レスポンスデータ形式
 			data: {	// リクエストパラメータ情報
 				zipcode: $('#zipcode').val()
