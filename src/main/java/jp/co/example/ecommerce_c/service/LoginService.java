@@ -31,8 +31,9 @@ public class LoginService {
 	 * @param password　パスワード
 	 * @return
 	 */
-	public User login(String email, String password) {
-		User user = userRepository.findByMailAddressAndPassword(email, password);
+	public User login(String email, String password ) {
+		
+		User user = userRepository.findByMailAddress(email);
 		
 		if (passwordEncoder.matches(password, user.getPassword())) {
 
