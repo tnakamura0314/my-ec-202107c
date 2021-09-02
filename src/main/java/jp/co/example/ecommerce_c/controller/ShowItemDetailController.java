@@ -29,8 +29,8 @@ public class ShowItemDetailController {
 	 * @return 商品詳細画面
 	 */
 	@RequestMapping("/showItemDetail")
-	public String showItemDetail(String id, Model model) {
-		Item item = showDetailService.showDetail(Integer.parseInt(id));
+	public String showItemDetail(Integer id, Model model) {
+		Item item = showDetailService.showDetail(id);
 		model.addAttribute("item", item);
 		return "item_detail";
 	}
