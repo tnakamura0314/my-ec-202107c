@@ -65,18 +65,23 @@
 								<label for="inputZipcode">郵便番号（ハイフン含む）:</label>
 								<label
 									class="control-label" style="color: red" for="inputError" th:errors="*{zipcode}">郵便番号を入力してください</label>
-									<input type="button" value="住所検索">
+									
+									<input id="zipcode" type="text" size="7" />
+									<button id="get_address_btn" type="button">住所検索</button><br>
+									
+								<!-- 	<input type="button" value="住所検索">
 								<input type="text" id="inputZipcode" class="form-control"
-									placeholder="Zipcode" th:field="*{zipcode}">
+									placeholder="Zipcode" th:field="*{zipcode}"> -->
 								
-							</div>
-							<div class="form-group">
+					<!-- 		</div>
+							<div class="form-group"> -->
 								<label for="inputAddress">住所:</label>
 								<label
 									class="control-label" style="color: red" for="inputError" th:errors="*{address}">住所を入力してください</label>
-								<input type="text" id="inputAddress" class="form-control"
+									<input type="text" id="address" class="form-control"
 									placeholder="Address" th:field="*{address}">
 							</div>
+							
 							<div class="form-group">
 								<label for="inputTel">電話番号(ハイフン含む):</label>
 								<label
@@ -112,5 +117,7 @@
 	<!-- end container -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script th:src="@{/js/get_address.js}"></script>
 </body>
 </html>
