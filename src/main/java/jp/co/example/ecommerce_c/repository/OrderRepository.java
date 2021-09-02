@@ -52,7 +52,7 @@ public class OrderRepository {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE orders SET user_id=:userId,status=:status,total_price=:totalPrice,order_date=:orderDate,");
-		sql.append("destination_name=:destinationName,destination_email=:destinationEmail,destination_zipcode=:destinationZipcode,");
+		sql.append("destination_name=:destinationName,destination_email=:destinationEmail,destination_zipcode=:destinationZipCode,");
 		sql.append("destination_address=:destinationAddress,destination_tel=:destinationTel,delivery_time=:deliveryTime,payment_method=:paymentMethod");
 		sql.append(" WHERE id=:id");
 		template.update(sql.toString(), param);
