@@ -7,11 +7,20 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_c.domain.Topping;
 
+/**
+ * toppingsテーブルを操作するリポジトリ.
+ * 
+ * @author nakamuratomoya
+ *
+ */
 @Repository
 public class ToppingRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
+	/**
+	 * Toppingオブジェクトを生成するローマッパー.
+	 */
 	private static final RowMapper<Topping> TOPPING_ROW_MAPPER
 		= (rs, i) -> {
 			Topping topping = new Topping();
