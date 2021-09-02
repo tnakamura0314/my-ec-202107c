@@ -84,6 +84,9 @@ public class OrderItem {
 	public void setSize(Character size) {
 		this.size = size;
 	}
+	public void setReceiveStringSize(String size) {
+		this.size = size.charAt(0);
+	}
 
 	public Item getItem() {
 		return item;
