@@ -60,7 +60,7 @@ public class LoginController {
 			return toLogin();
 		}
 		session.setAttribute("userName", user.getName());
-		return "item_list_toy";
+		return "forward:/showItem/showItemList";
 	}
 
 //　通常のログインは完成
