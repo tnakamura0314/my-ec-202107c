@@ -118,7 +118,9 @@
 		</div>
 
 		<!-- table -->
-		<form action="order_finished.html">
+		<form action="order_finished.html" method="POST" th:action="@{/order-confirm/order}" th:object="${orderForm}">
+<!-- 		注文一覧表示実装後value属性はth:value="${order.id}"にする -->
+		<input type="hidden" name="id" value="1" th:value="1">
 			<div class="row">
 				<div
 					class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
@@ -132,7 +134,8 @@
 									</div>
 								</td>
 								<td>
-									<input type="text">
+								<span th:errors="*{destinationName}" style="color:red;"></span>
+									<input type="text" name="destinationName" th:field="*{destinationName}">
 								</td>
 							</tr>
 							<tr>
@@ -142,7 +145,8 @@
 									</div>
 								</td>
 								<td>
-									<input type="text">
+								<span th:errors="*{destinationEmail}" style="color:red;"></span>
+									<input type="text" name="destinationEmail" th:field="*{destinationEmail}">
 								</td>
 							</tr>
 							<tr>
@@ -152,7 +156,8 @@
 									</div>
 								</td>
 								<td>
-									<input type="text">&nbsp;&nbsp;<button>住所検索</button>
+								<span th:errors="*{destinationZipCode}" style="color:red;"></span>
+									<input type="text" name="destinationZipCode" th:field="*{destinationZipCode}">&nbsp;&nbsp;<button>住所検索</button>
 								</td>
 							</tr>
 							<tr>
@@ -162,7 +167,8 @@
 									</div>
 								</td>
 								<td>
-									<input type="text">
+								<span th:errors="*{destinationAddress}" style="color:red;"></span>
+									<input type="text" name="destinationAddress" th:field="*{destinationAddress}">
 								</td>
 							</tr>
 							<tr>
@@ -172,7 +178,8 @@
 									</div>
 								</td>
 								<td>
-									<input type="text">
+								<span th:errors="*{destinationTel}" style="color:red;"></span>
+									<input type="text" name="destinationTel" th:field="*{destinationTel}">
 								</td>
 							</tr>
 							<tr>
@@ -185,11 +192,11 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-12">
-												<label
-													class="control-label" style="color: red" for="inputPeriod">配達日時を入力してください</label>
+												<span th:text="${timeErrorMessage}" style="color:red;"></span>
+												<span th:errors="*{deliveryDate}" style="color:red;"></span>
 											</div>
 											<div class="col-sm-5">
-												<input type="date" name="name" id="name"
+												<input type="date" name="deliveryDate" id="name" th:field="*{deliveryDate}"
 													class="form-control input-sm" />
 											</div>
 
@@ -198,47 +205,47 @@
 											<div class="col-sm-12">
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany" checked="checked">
+														name="deliveryTime" checked="checked" value="10">
 													10時
 												</label>
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany">
+														name="deliveryTime" value="11">
 													11時
 												</label>
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany">
+														name="responsibleCompany" value="12">
 													12時
 												</label><br>
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany">
+														name="deliveryTime" value="13">
 													13時
 												</label>
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany">
+														name="deliveryTime">
 													14時
 												</label>
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany">
+														name="deliveryTime">
 													15時
 												</label><br>
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany">
+														name="deliveryTime">
 													16時
 												</label>
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany">
+														name="deliveryTime">
 													17時
 												</label>
 												<label class="radio-inline">
 													<input type="radio"
-														name="responsibleCompany">
+														name="deliveryTime">
 													18時
 												</label><br>
 											</div>
@@ -269,7 +276,7 @@
 										<div class="col-sm-12">
 											<label class="radio-inline">
 												<input type="radio"
-													name="responsibleCompany" checked="checked">
+													name="paymentMethod" value="1">
 												代金引換
 											</label>
 										</div>
@@ -287,7 +294,7 @@
 										<div class="col-sm-12">
 											<label class="radio-inline">
 												<input type="radio"
-													name="responsibleCompany" checked="checked">
+													name="paymentMethod" checked="checked" value="2">
 												クレジットカード
 											</label><br><br>
 										</div>
