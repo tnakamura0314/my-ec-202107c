@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_c.domain.User;
 import jp.co.example.ecommerce_c.form.LoginForm;
+import jp.co.example.ecommerce_c.form.ShowItemListForm;
 import jp.co.example.ecommerce_c.service.LoginService;
 
 /**
@@ -60,7 +61,7 @@ public class LoginController {
 			return toLogin();
 		}
 		session.setAttribute("userName", user.getName());
-		return "item_list_toy";
+		return "forward:/showItem/showItemList";
 	}
 
 //　通常のログインは完成
