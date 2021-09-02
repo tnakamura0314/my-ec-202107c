@@ -13,8 +13,8 @@ import jp.co.example.ecommerce_c.domain.Item;
 
 /**
  * itemsテーブルを操作するリポジトリ.
- * 
- * @author nakamuratomoya
+ *
+ * @author fukushima, nakamuratomoya
  *
  */
 @Repository
@@ -36,7 +36,20 @@ public class ItemRepository {
 		item.setDeleted(rs.getBoolean("deleted"));
 		return item;
 	};
-	
+
+	/**
+	 * 商品IDから商品情報を取得します.
+	 *
+	 * @param id 商品ID
+	 * @return 商品情報
+	 */
+	public Item load(Integer id) {
+		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items WHERE id=:id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+		return item;
+	}
+
 	/**
 	 * 商品情報を全件取得するメソッド.
 	 * 
@@ -51,8 +64,7 @@ public class ItemRepository {
 		return itemList;
 		
 	}
-	
-	
+
 	/**
 	 * 商品名で曖昧検索するメソッド.
 	 * 
@@ -74,5 +86,4 @@ public class ItemRepository {
 		return itemList;
 		
 	}
-
 }
