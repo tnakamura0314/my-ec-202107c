@@ -33,7 +33,6 @@ public class ShowItemDetailService {
 	public Item showDetail(Integer id) {
 		Item item = itemRepository.findById(id);
 		item.setToppingList(toppingRepository.findAll());
-		System.out.println(item);
 		return item;
 	}
 }

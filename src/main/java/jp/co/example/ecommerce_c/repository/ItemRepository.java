@@ -12,18 +12,20 @@ import org.springframework.stereotype.Repository;
 import jp.co.example.ecommerce_c.domain.Item;
 
 /**
- * itemsテーブルから商品情報を取得するリポジトリ.
+ * itemsテーブルを操作するリポジトリ.
  *
- * @author fukushima
+ * @author fukushima, nakamuratomoya
  *
  */
 @Repository
 public class ItemRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
-	private static final RowMapper<Item> ITEM_ROW_MAPPER
-	= (rs, i) -> {
+
+	/**
+	 * itemsオブジェクトを生成するローマッパー.
+	 */
+	private static final RowMapper<Item> ITEM_ROW_MAPPER = (rs, i) -> {
 		Item item = new Item();
 		item.setId(rs.getInt("id"));
 		item.setName(rs.getString("name"));
@@ -34,7 +36,7 @@ public class ItemRepository {
 		item.setDeleted(rs.getBoolean("deleted"));
 		return item;
 	};
-	
+
 	/**
 	 * 商品IDから商品情報を取得します.
 	 *
@@ -46,5 +48,42 @@ public class ItemRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList.get(0);
+	}
+
+	/**
+	 * 商品情報を全件取得するメソッド.
+	 * 
+	 * @return 全件の商品情報
+	 */
+	public List<Item> findAll(){
+		
+		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m ;";
+		
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
+		
+		return itemList;
+		
+	}
+
+	/**
+	 * 商品名で曖昧検索するメソッド.
+	 * 
+	 * @param name 商品名
+	 * @return　検索名に該当する商品情報
+	 */
+	public List<Item> findByName(String name){
+		
+		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items WHERE name LIKE :name ORDER BY price_m ;";
+		
+		SqlParameterSource param  = new MapSqlParameterSource().addValue("name", "%" + name + "%");
+		
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		
+		if (itemList.size() == 0) {
+			return null;
+		}
+		
+		return itemList;
+		
 	}
 }
