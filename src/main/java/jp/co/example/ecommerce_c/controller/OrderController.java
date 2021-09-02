@@ -44,10 +44,11 @@ public class OrderController {
 	 */
 	@RequestMapping("/order")
 	public String order(@Validated OrderForm form,BindingResult result,Model model) {
-		
+
 		if (result.hasErrors()) {
 			return toOrderConfirm();
 		}
+
 		orderService.update(form,model);
 		return "redirect:/order-confirm/toComplete";
 	}

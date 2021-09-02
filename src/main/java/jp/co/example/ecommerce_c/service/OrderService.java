@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-
 import jp.co.example.ecommerce_c.domain.Order;
 import jp.co.example.ecommerce_c.domain.PaymentMethod;
 import jp.co.example.ecommerce_c.domain.Status;
@@ -35,7 +34,10 @@ public class OrderService {
 	 * 
 	 * @param order 更新する注文情報
 	 */
+
 	public void update(OrderForm form,Model model) {
+
+
 		try {
 			// 注文日の作成
 			Date orderDay = new Date();

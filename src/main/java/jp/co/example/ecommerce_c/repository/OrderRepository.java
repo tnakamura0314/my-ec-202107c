@@ -26,7 +26,7 @@ public class OrderRepository {
 	 * Articleオブジェクトを生成するローマッパー.
 	 */
 	private static final RowMapper<Order> ORDER_ROW_MAPPER = new BeanPropertyRowMapper<>(Order.class);
-	
+
 	/**
 	 * 主キー検索を行う.
 	 * 
@@ -42,7 +42,7 @@ public class OrderRepository {
 		Order order = template.queryForObject(sql.toString(), param, ORDER_ROW_MAPPER);
 		return order;
 	}
-	
+
 	/**
 	 * 渡した注文情報を更新する.
 	 * 
@@ -58,3 +58,4 @@ public class OrderRepository {
 		template.update(sql.toString(), param);
 	}
 }
+
