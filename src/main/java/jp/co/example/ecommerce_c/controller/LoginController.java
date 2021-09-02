@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_c.domain.User;
 import jp.co.example.ecommerce_c.form.LoginForm;
-import jp.co.example.ecommerce_c.form.ShowItemListForm;
 import jp.co.example.ecommerce_c.service.LoginService;
 
 /**

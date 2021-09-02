@@ -23,7 +23,7 @@ public class LogoutController {
 	public String toLogout() {
 		// セッションの切断
 		session.invalidate();
-		return "item_list_toy";
+		return "forward:/showItem/showItemList";
 	}
 
 }
