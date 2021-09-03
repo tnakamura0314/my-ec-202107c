@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 import jp.co.example.ecommerce_c.domain.Item;
 import jp.co.example.ecommerce_c.repository.ItemRepository;
 
+/**
+ * 商品情報をソート操作するサービス.
+ * 
+ * @author yuyayokoyama
+ *
+ */
 @Service
 public class SortService {
 	
