@@ -91,9 +91,8 @@ public class ItemRepository {
 	 */
 	public List<Item> findByPriceAsc(Integer price_m){
 		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("price_m", price_m);
 
-		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
 	
@@ -104,9 +103,8 @@ public class ItemRepository {
 	 */
 	public List<Item> findByPriceDesc(Integer price_m){
 		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m DESC;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("price_m", price_m);
 
-		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
 	
@@ -117,9 +115,8 @@ public class ItemRepository {
 	 */
 	public List<Item> findByNameAsc(String name){
 		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY name;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
 
-		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
 	
@@ -130,9 +127,8 @@ public class ItemRepository {
 	 */
 	public List<Item> findByNameDesc(String name){
 		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY name DESC;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
 
-		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
 	
