@@ -1,13 +1,16 @@
 package jp.co.example.ecommerce_c.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_c.domain.Order;
+import jp.co.example.ecommerce_c.domain.User;
+import jp.co.example.ecommerce_c.form.OrderForm;
 import jp.co.example.ecommerce_c.service.OrderHistoryService;
 
 /**
@@ -23,6 +26,14 @@ public class OrderHistoryController {
 	@Autowired
 	private OrderHistoryService service;
 	
+	@Autowired
+	private HttpSession sessison;
+	
+	@ModelAttribute
+	public OrderForm setUpForm() {
+		return new OrderForm();
+	}
+	
 	/**
 	 * 注文履歴情報を表示する.
 	 * 
@@ -30,15 +41,16 @@ public class OrderHistoryController {
 	 * @return　注文履歴情報(1件もなければメッセージ)
 	 */
 	@RequestMapping("")
-	public String showHistory(Model model) {
-		
-		//後ほど実装します
-//		List<Order> orderHistoryList = service.
-//		
-//		if(orderHistoryList == null) {
-//			model.addAttribute("errorMessage", "検索結果が1件もありませんでした");
-//			return "/order_history";
-//		}
+	public String orderHistory(Model model) {
+		User user = (User) sessison.getAttribute("user");
+		Integer userId = user.getId();
+		Order order = service.orderHistory(userId);
+		int subtotalPrice = order.getTotalPrice();
+		int tax = (int) (subtotalPrice * 0.1);
+		int totalPrice = subtotalPrice + tax;
+		model.addAttribute("order", order);
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("tax", tax);
 		
 		return "/order_history";
 	}
