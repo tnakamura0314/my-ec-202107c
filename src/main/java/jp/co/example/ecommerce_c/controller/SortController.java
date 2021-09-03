@@ -118,8 +118,8 @@ public class SortController {
 				}
 			}
 			model.addAttribute("itemList3", itemList3);
-			return "/item_list_toy";
 		}
+		return "/item_list_toy";
 	}
 }
 

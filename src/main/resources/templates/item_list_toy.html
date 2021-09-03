@@ -57,6 +57,7 @@
 					</div>
 					<div class="panel-body">
 						<form method="post" th:action="@{/showItem/showItemNameList}" class="form-horizontal" th:object="${showItemListForm}">
+						<!-- <form method="post" th:action="@{/sort/}" class="form-horizontal" th:object="${sortForm}"> -->
 							<div class="form-group">
 							    <div th:text="${errorMessage}" style="color : red;"></div>
 								<label for="code" class="control-label col-sm-2">商品名</label>
@@ -69,8 +70,7 @@
 								<button type="submit" value="検索" class="btn btn-primary">検索</button>
 								<button type="reset" value="クリア" class="btn btn-default">クリア</button>
 							</div>
-						</form>
-						<form method="post" th:action="@{/sort/}" class="form-horizontal" th:object="${sortForm}">
+						<!-- </form> -->
 							<div class="text-right">
 								<select name="sort" id="sort">
 									<option value="0">-並び替え-</option>
