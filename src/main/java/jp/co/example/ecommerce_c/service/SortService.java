@@ -35,8 +35,8 @@ public class SortService {
 	 * @param price_m Mの値段
 	 * @return 値段の昇順で並び替えられた商品情報
 	 */
-	public List<Item> priceSortAsc(){
-		List<Item> itemList = repository.findByPriceAsc();
+	public List<Item> priceSortAsc(String sort){
+		List<Item> itemList = repository.findByPriceAsc(sort);
 		return itemList;
 	}
 	
@@ -46,8 +46,8 @@ public class SortService {
 	 * @param price_m Mの値段
 	 * @return 値段の降順で並び替えられた商品情報
 	 */
-	public List<Item> priceSortDesc(){
-		List<Item> itemList = repository.findByPriceDesc();
+	public List<Item> priceSortDesc(String sort){
+		List<Item> itemList = repository.findByPriceDesc(sort);
 		return itemList;
 	}
 	
@@ -56,8 +56,8 @@ public class SortService {
 	 * @param name 商品名
 	 * @return 商品名の昇順で並び替えられた商品情報
 	 */
-	public List<Item> nameSortAsc(){
-		List<Item> itemList = repository.findByNameAsc();
+	public List<Item> nameSortAsc(String sort){
+		List<Item> itemList = repository.findByNameAsc(sort);
 		return itemList;
 	}
 	
@@ -66,8 +66,8 @@ public class SortService {
 	 * @param name 商品名
 	 * @return 商品名の降順で並び替えられた商品情報
 	 */
-	public List<Item> nameSortDesc(){
-		List<Item> itemList = repository.findByNameDesc();
+	public List<Item> nameSortDesc(String sort){
+		List<Item> itemList = repository.findByNameDesc(sort);
 		return itemList;
 	}
 

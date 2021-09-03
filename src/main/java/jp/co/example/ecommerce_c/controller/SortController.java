@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.example.ecommerce_c.domain.Item;
 import jp.co.example.ecommerce_c.form.SortForm;
 import jp.co.example.ecommerce_c.service.SortService;
-import jp.co.sample.emp_management.domain.Employee;
 
 @Controller
 @RequestMapping("/sort")
@@ -42,9 +41,10 @@ public class SortController {
 		// 名前の昇順
 		if(sort.equals("1")) {
 			
+			
 			List<List<Item>> itemList3 = new ArrayList<>();
 			List<Item> itemList2 = new ArrayList<>();
-			List<Item> itemList = service.nameSortAsc();
+			List<Item> itemList = service.nameSortAsc(sort);
 			int roopCount = 0;
 
 			for (Item item : itemList) {
@@ -64,7 +64,7 @@ public class SortController {
 		} else if (sort.equals("2")) {
 			List<List<Item>> itemList3 = new ArrayList<>();
 			List<Item> itemList2 = new ArrayList<>();
-			List<Item> itemList = service.nameSortDesc();
+			List<Item> itemList = service.nameSortDesc(sort);
 			int roopCount = 0;
 
 			for (Item item : itemList) {
@@ -84,7 +84,7 @@ public class SortController {
 		} else if (sort.equals("3")) {
 			List<List<Item>> itemList3 = new ArrayList<>();
 			List<Item> itemList2 = new ArrayList<>();
-			List<Item> itemList = service.priceSortAsc();
+			List<Item> itemList = service.priceSortAsc(sort);
 			int roopCount = 0;
 
 			for (Item item : itemList) {
@@ -104,7 +104,7 @@ public class SortController {
 		} else if (sort.equals("4")) {
 			List<List<Item>> itemList3 = new ArrayList<>();
 			List<Item> itemList2 = new ArrayList<>();
-			List<Item> itemList = service.priceSortDesc();
+			List<Item> itemList = service.priceSortDesc(sort);
 			int roopCount = 0;
 
 			for (Item item : itemList) {
