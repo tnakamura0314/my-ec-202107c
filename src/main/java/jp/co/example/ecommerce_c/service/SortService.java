@@ -21,6 +21,16 @@ public class SortService {
 	private ItemRepository repository;
 	
 	/**
+	 * 商品情報を全件検索する.
+	 * 
+	 * @return 全件の商品
+	 */
+	public List<Item> showItemList(){
+		List<Item> itemList = repository.findAll();
+		return itemList;
+	}
+	
+	/**
 	 * 商品情報を値段の昇順で表示する.
 	 * @param price_m Mの値段
 	 * @return 値段の昇順で並び替えられた商品情報
