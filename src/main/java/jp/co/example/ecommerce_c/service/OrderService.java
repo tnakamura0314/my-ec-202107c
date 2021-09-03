@@ -9,7 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.ui.Model;
 import jp.co.example.ecommerce_c.domain.Order;
 import jp.co.example.ecommerce_c.domain.PaymentMethod;
 import jp.co.example.ecommerce_c.domain.Status;
@@ -34,7 +34,10 @@ public class OrderService {
 	 * 
 	 * @param order 更新する注文情報
 	 */
-	public void update(OrderForm form) {
+
+	public void update(OrderForm form,Model model) {
+
+
 		try {
 			// 注文日の作成
 			Date orderDay = new Date();
@@ -46,8 +49,15 @@ public class OrderService {
 			String strDate = form.getDeliveryDate() + "-" + form.getDeliveryTime() + "-00-00";
 			System.out.println(strDate);
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-			Date date = simpleDateFormat.parse(strDate);
-			Timestamp deliveryTime = new Timestamp(date.getTime());
+			Date deliveryDate = simpleDateFormat.parse(strDate);
+			Timestamp deliveryTime = new Timestamp(deliveryDate.getTime());
+			
+			long diff = deliveryDate.getTime() - orderDay.getTime();
+			if(diff < 3) {
+				model.addAttribute("timeErrorMessage", "今から3時間後の日時をご入力ください");
+				return;
+			}
+			
 			order.setOrderDate(orderDay);
 			order.setDeliveryTime(deliveryTime);
 			order.setPaymentMethod(form.getIntPaymentMethod());

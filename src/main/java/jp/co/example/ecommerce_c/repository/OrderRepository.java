@@ -1,6 +1,7 @@
 package jp.co.example.ecommerce_c.repository;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import jp.co.example.ecommerce_c.domain.Topping;
 
 /**
  * Orderテーブルを操作するリポジトリ.
+ * 
  * @author kanekojota
  *
  */
@@ -38,35 +40,57 @@ public class OrderRepository {
 	private static final RowMapper<Order> ORDER_ROW_MAPPER = new BeanPropertyRowMapper<>(Order.class);
 
 	/**
+	 * userIdとstatusが0の注文を全件取得するメソッド
+	 * 
+	 * @param userID ユーザーID
+	 * @return serIdとstatusが0の全件注文情報
+	 */
+	public List<Order> findByUserIdAndStatus(Integer userID) {
+
+		String sql = "SELECT o.id o_id, o.user_id o_user_id, o.status o_status, o.total_price o_total_price, o.order_date o_order_date, o.destination_name o_destination_name, o.destination_email o_destination_email, o.destination_zipcode o_destination_zipcode, o.destination_address o_destination_address, o.destination_tel o_destination_tel, o.delivery_time o_delivery_time, o.payment_method o_payment_method"
+				+ ", i.id i_id, i.item_id i_item_id, i.order_id i_order_id, i.quantity i_quantity, i.size i_size"
+				+ ", t.id t_id, t.topping_id t_topping_id, t.order_item_id t_order_item_id "
+				+ "FROM orders AS o LEFT OUTER JOIN order_items AS i ON o.user_id = i.id LEFT OUTER JOIN order_toppings AS t ON i.id = t.order_item_id "
+				+ "WHERE o.user_id=:userID AND o.status=0;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userID", userID);
+
+		List<Order> orderList = template.query(sql, param, ORDER_ROW_MAPPER);
+
+		return orderList;
+
+	}
+
+	/**
 	 * Orderオブジェクトを生成するローマッパー(コメントと結合).
 	 * 
 	 */
 	private static final ResultSetExtractor<Order> ARTICLE_RESULT_SET_EXTRATOR = (rs) -> {
-		//orderオブジェクトを作成
+		// orderオブジェクトを作成
 		Order order = new Order();
-		//各情報の格納用リストの作成/
+		// 各情報の格納用リストの作成/
 		List<OrderItem> orderItemList = null;
 		List<OrderTopping> orderToppingList = null;
 		List<Topping> toppingList = null;
-		
-		//格納するオブジェクトの作成
+
+		// 格納するオブジェクトの作成
 		OrderItem orderItem = null;
 		OrderTopping orderTopping = null;
 		Item item = null;
-		//初期変数
+		// 初期変数
 		int beforeOrderId = 0;
 		int beforeOrderItemId = 0;
 		int beforeOrderToppingId = 0;
 		int beforeItemId = 0;
 		int beforeToppingId = 0;
-		
-		while(rs.next()) {
+
+		while (rs.next()) {
 			int nowOrderId = rs.getInt("o_id");
 			int nowOrderItemId = rs.getInt("i_id");
 			int nowOrderToppingId = rs.getInt("ot_topping_id");
 			int nowItemId = rs.getInt("oi_item_id");
 			int nowToppingId = rs.getInt("t_id");
-			
+
 			if (nowOrderId != beforeOrderId) {
 				order.setId(rs.getInt("o_id"));
 				order.setUserId(rs.getInt("o_user_id"));
@@ -83,7 +107,7 @@ public class OrderRepository {
 				orderItemList = new ArrayList<OrderItem>();
 				order.setOrderItemList(orderItemList);
 			}
-			
+
 			if (rs.getInt("oi_id") != 0) {
 				if (nowOrderItemId != beforeOrderItemId) {
 					orderItem = new OrderItem();
@@ -113,7 +137,7 @@ public class OrderRepository {
 					item.setToppingList(toppingList);
 					orderItem.setItem(item);
 				}
-				
+
 				if (rs.getInt("ot_id") != 0) {
 					Topping topping = new Topping();
 					if (nowOrderToppingId != beforeOrderToppingId) {
@@ -133,18 +157,17 @@ public class OrderRepository {
 						toppingList.add(topping);
 					}
 				}
-		}
+			}
 			beforeOrderId = nowOrderId;
 			beforeOrderItemId = nowOrderItemId;
 			beforeOrderToppingId = nowOrderToppingId;
 			beforeItemId = nowItemId;
 			beforeToppingId = nowToppingId;
-		
+
 		}
 		return order;
 	};
-	
-	
+
 	/**
 	 * 主キー検索を行う.
 	 * 
@@ -153,7 +176,8 @@ public class OrderRepository {
 	 */
 	public Order load(Integer orderId) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT id,user_id,status,total_price,order_date,destination_name,destination_email,destination_zipcode,");
+		sql.append(
+				"SELECT id,user_id,status,total_price,order_date,destination_name,destination_email,destination_zipcode,");
 		sql.append("destination_address,destination_tel,delivery_time,payment_method");
 		sql.append(" FROM orders WHERE id=:orderId");
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderId", orderId);
@@ -170,12 +194,15 @@ public class OrderRepository {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE orders SET user_id=:userId,status=:status,total_price=:totalPrice,order_date=:orderDate,");
-		sql.append("destination_name=:destinationName,destination_email=:destinationEmail,destination_zipcode=:destinationZipCode,");
-		sql.append("destination_address=:destinationAddress,destination_tel=:destinationTel,delivery_time=:deliveryTime,payment_method=:paymentMethod");
+		sql.append(
+				"destination_name=:destinationName,destination_email=:destinationEmail,destination_zipcode=:destinationZipCode,");
+		sql.append(
+				"destination_address=:destinationAddress,destination_tel=:destinationTel,delivery_time=:deliveryTime,payment_method=:paymentMethod");
 		sql.append(" WHERE id=:id");
 		template.update(sql.toString(), param);
+
 	}
-	
+
 	public Order insert(Order order) {
 		String sql = "insert into orders (user_id,status,total_price) values(:userId,:status,:totalPrice);";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", order.getUserId())
@@ -186,25 +213,23 @@ public class OrderRepository {
 		order.setId(keyHolder.getKey().intValue());
 		return order;
 	}
-	
 
-	public Order findByUserIdAndStatus(Integer userId,Integer status) {
-		
+	public Order findByUserIdAndStatus(Integer userId, Integer status) {
+
 		String sql = "SELECT o.id o_id, o.user_id o_user_id, o.status o_status, o.total_price o_total_price, o.order_date o_order_date, o.destination_name o_destination_name, o.destination_email o_destination_email, o.destination_zipcode o_destination_zipcode, o.destination_address o_destination_address, o.destination_tel o_destination_tel, o.delivery_time o_delivery_time, o.payment_method o_payment_method"
-				   + ", oi.id oi_id, oi.item_id oi_item_id, oi.order_id oi_order_id, oi.quantity oi_quantity, oi.size oi_size"
-				   + ", ot.id ot_id, ot.topping_id ot_topping_id, ot.order_item_id ot_order_item_id "
-				   + ", i.id i_id, i.name i_name, i.description i_description, i.price_m i_price_m, i.price_l i_price_l, i.image_path i_image_path, i.deleted i_deleted"
-				   + ", t.id t_id, t.name t_name, t.price_m t_price_m, t.price_l t_price_l"
-				   + " FROM orders AS o LEFT OUTER JOIN order_items AS oi ON o.id = oi.order_id LEFT OUTER JOIN order_toppings AS ot ON oi.id = ot.order_item_id LEFT OUTER JOIN items AS i ON oi.item_id = i.id LEFT OUTER JOIN toppings AS t ON ot.topping_id = t.id"
-				   + " WHERE o.user_id=:userID AND o.status=:status ORDER BY oi_id DESC;";
-		
+				+ ", oi.id oi_id, oi.item_id oi_item_id, oi.order_id oi_order_id, oi.quantity oi_quantity, oi.size oi_size"
+				+ ", ot.id ot_id, ot.topping_id ot_topping_id, ot.order_item_id ot_order_item_id "
+				+ ", i.id i_id, i.name i_name, i.description i_description, i.price_m i_price_m, i.price_l i_price_l, i.image_path i_image_path, i.deleted i_deleted"
+				+ ", t.id t_id, t.name t_name, t.price_m t_price_m, t.price_l t_price_l"
+				+ " FROM orders AS o LEFT OUTER JOIN order_items AS oi ON o.id = oi.order_id LEFT OUTER JOIN order_toppings AS ot ON oi.id = ot.order_item_id LEFT OUTER JOIN items AS i ON oi.item_id = i.id LEFT OUTER JOIN toppings AS t ON ot.topping_id = t.id"
+				+ " WHERE o.user_id=:userID AND o.status=:status ORDER BY oi_id DESC;";
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userID", userId).addValue("status", status);
-		
+
 		Order order = template.query(sql, param, ARTICLE_RESULT_SET_EXTRATOR);
-		
+
 		return order;
-		
+
 	}
 
 }
-
