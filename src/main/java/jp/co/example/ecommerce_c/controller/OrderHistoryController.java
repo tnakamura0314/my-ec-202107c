@@ -44,10 +44,15 @@ public class OrderHistoryController {
 	public String orderHistory(Model model) {
 		User user = (User) sessison.getAttribute("user");
 		Integer userId = user.getId();
+		System.out.println("before" + userId);
 		Order order = service.orderHistory(userId);
+		System.out.println("after" + order.getId());
 		int subtotalPrice = order.getTotalPrice();
 		int tax = (int) (subtotalPrice * 0.1);
 		int totalPrice = subtotalPrice + tax;
+		if(totalPrice == 0) {
+			model.addAttribute("noItemMessage","カートに商品がありません。");
+		}	
 		model.addAttribute("order", order);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("tax", tax);

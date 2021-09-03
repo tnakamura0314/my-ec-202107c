@@ -35,9 +35,10 @@ public class OrderHistoryService {
 	 */
 	public Order orderHistory(int userId) {
 		int totalPrice = 0;
-		int status = Status.DELIVERED.getKey();
-		int status2 =  Status.DELIVERY_COMPLETE.getKey();
+		int status = Status.NOT_PAYMENT.getKey();
+		int status2 =  Status.DEPOSITED.getKey();
 		Order order = orderRepository.findByUserIdAndStatusOfOrderHistory(userId, status, status2);
+	
 		if (order != null) {
 			for (OrderItem orderItem : order.getOrderItemList()) {
 				// サイズによりトッピングの価格が異なるためサイズで場合分けする
