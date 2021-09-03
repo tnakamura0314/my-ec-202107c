@@ -39,7 +39,7 @@ public class ShowItemListController {
 	 */
 	@RequestMapping("/showItemList")
 	public String showItemList(Model model) {
-
+		
 		List<List<Item>> itemList3 = new ArrayList<>();
 		List<Item> itemList2 = new ArrayList<>();
 		List<Item> itemList = service.showItemList();
@@ -57,6 +57,8 @@ public class ShowItemListController {
 		}
 
 		model.addAttribute("itemList3", itemList3);
+		//オートコンプリート実装のため追加しました。（金子）
+		model.addAttribute("itemList", itemList);
 
 		return "/item_list_toy";
 
