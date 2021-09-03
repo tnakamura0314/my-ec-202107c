@@ -165,7 +165,8 @@
 								</td>
 								<td>
 								<span th:errors="*{destinationZipCode}" style="color:red;"></span>
-									<input type="text" name="destinationZipCode" th:field="*{destinationZipCode}">&nbsp;&nbsp;<button>住所検索</button>
+									<input type="text" name="destinationZipCode" th:field="*{destinationZipCode}">&nbsp;&nbsp;
+									<button type="button" onClick="AjaxZip3.zip2addr('destinationZipCode', '', 'destinationAddress', 'destinationAddress');">住所検索</button>
 								</td>
 							</tr>
 							<tr>
@@ -325,5 +326,6 @@
 	<!-- end container -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 </body>
 </html>
