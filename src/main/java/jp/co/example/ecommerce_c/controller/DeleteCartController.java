@@ -24,7 +24,6 @@ public class DeleteCartController {
 	 */
 	@RequestMapping("")
 	public String deleteOrderItemAndOrderTopping(int orderItemId) {
-		System.out.println("IDテスト"+orderItemId);
 		deleteCartService.deleteOrderItemAndOrderTopping(orderItemId);
 		return "redirect:/shopping-cart/show";
 	}
