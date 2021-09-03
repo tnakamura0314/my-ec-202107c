@@ -25,8 +25,8 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="item_list_pizza.html"> <!-- 企業ロゴ --> <img
-						alt="main log" src="../static/img_pizza/header_logo.png" height="35">
+					<a class="navbar-brand" th:href="@{/showItem/showItemList}"> <!-- 企業ロゴ --> <img
+						alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
 					</a>
 				</div>
 
@@ -51,7 +51,7 @@
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<h3 class="text-center">注文内容確認</h3>
-				<table class="table table-striped item-list-table">
+				  <table class="table table-striped item-list-table">
 					<tbody>
 						<tr>
 							<th>
@@ -74,79 +74,40 @@
 									小計
 								</div>
 							</th>
+							<th>
+							</th>
 						</tr>
-						<tr>
+						<tr th:each="orderItem:${order.orderItemList}">
 							<td>
 								<div class="center">
-									<img src="../static/img_pizza/1.jpg"
+									<img src="../static/img_pizza/1.jpg" th:src="@{/img_toy/}+${orderItem.item.imagePath}"
 										class="img-responsive img-rounded item-img-center" width="100" height="300"><br>
-									じゃがバターベーコン
+									<span th:text="${orderItem.item.name}">じゃがバターベーコン</span>
 								</div>
 							</td>
 							<td>
-								<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-								&nbsp;&nbsp;1個
+								<span class="price" th:text="${orderItem.size}">&nbsp;Ｌ</span>&nbsp;&nbsp;
+								<span th:if="${orderItem.size} == M" th:text="${orderItem.item.priceM}">2,380</span>
+								<span th:if="${orderItem.size} == L" th:text="${orderItem.item.priceL}">2,380</span>円
+								&nbsp;&nbsp;
+								<span th:text="${orderItem.quantity}">1</span>個
 							</td>
 							<td>
 								<ul>
-									<li>ピーマン300円</li>
-									<li>オニオン300円</li>
-									<li>あらびきソーセージ300円</li>
+									<li th:each="topping:${orderItem.orderToppingList}"><span th:text="${topping.topping.name}"></span></li>
 								</ul>
 							</td>
 							<td>
 								<div class="text-center">
-									3,280円
+									<span th:if="${orderItem.size} == M"
+										th:text="${orderItem.quantity} * ${orderItem.item.priceM} + ${orderItem.quantity} * ${orderItem.orderToppingList.size()} * 200">3,280</span>
+									<span th:if="${orderItem.size} == L"
+										th:text="${orderItem.quantity} * ${orderItem.item.priceL} + ${orderItem.quantity} * ${orderItem.orderToppingList.size()} * 300">3,280</span>円
 								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="center">
-									<img src="../static/img_pizza/1.jpg"
-										class="img-responsive img-rounded item-img-center" width="100" height="300"><br>
-									じゃがバターベーコン
-								</div>
-							</td>
-							<td>
-								<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-								&nbsp;&nbsp;1個
-							</td>
-							<td>
-								<ul>
-									<li>ピーマン300円</li>
-									<li>オニオン300円</li>
-									<li>あらびきソーセージ300円</li>
-								</ul>
 							</td>
 							<td>
 								<div class="text-center">
-									3,280円
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="center">
-									<img src="../static/img_pizza/1.jpg"
-										class="img-responsive img-rounded item-img-center" width="100" height="300"><br>
-									じゃがバターベーコン
-								</div>
-							</td>
-							<td>
-								<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-								&nbsp;&nbsp;1個
-							</td>
-							<td>
-								<ul>
-									<li>ピーマン300円</li>
-									<li>オニオン300円</li>
-									<li>あらびきソーセージ300円</li>
-								</ul>
-							</td>
-							<td>
-								<div class="text-center">
-									3,280円
+									<button type="submit" class="btn btn-primary">削除</button>
 								</div>
 							</td>
 						</tr>
@@ -204,7 +165,8 @@
 								</td>
 								<td>
 								<span th:errors="*{destinationZipCode}" style="color:red;"></span>
-									<input type="text" name="destinationZipCode" th:field="*{destinationZipCode}">&nbsp;&nbsp;<button>住所検索</button>
+									<input type="text" name="destinationZipCode" th:field="*{destinationZipCode}">&nbsp;&nbsp;
+									<button type="button" onClick="AjaxZip3.zip2addr('destinationZipCode', '', 'destinationAddress', 'destinationAddress');">住所検索</button>
 								</td>
 							</tr>
 							<tr>
@@ -364,5 +326,6 @@
 	<!-- end container -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 </body>
 </html>
