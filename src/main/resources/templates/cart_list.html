@@ -107,7 +107,10 @@
 							</td>
 							<td>
 								<div class="text-center">
+								<form method="POST" th:action="@{/shopping-cart/delete}">
+									<input type="hidden" name="orderItemId" th:value="${orderItem.id}">
 									<button type="submit" class="btn btn-primary">削除</button>
+								</form>
 								</div>
 							</td>
 						</tr>
