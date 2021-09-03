@@ -69,19 +69,16 @@
 								<button type="submit" value="検索" class="btn btn-primary">検索</button>
 								<button type="reset" value="クリア" class="btn btn-default">クリア</button>
 							</div>
+						</form>
+						<form method="post" th:action="@{/sort/}" class="form-horizontal" th:object="${sortForm}">
 							<div class="text-right">
-								<select name="subject" id="subject">
-									<option value="0">---対象---</option>
-									<option value="1">名前</option>
-									<option value="1">金額</option>
-								</select>
-								
 								<select name="sort" id="sort">
-									<option value="0">---順序---</option>								
-									<option value="1">昇順</option>								
-									<option value="2">降順</option>								
+									<option value="0">-並び替え-</option>
+									<option value="1">名前の昇順</option>
+									<option value="2">名前の降順</option>
+									<option value="3">金額の昇順</option>
+									<option value="4">金額の降順</option>
 								</select>
-							
 							</div>
 						</form>
 					</div>

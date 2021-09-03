@@ -1,6 +1,7 @@
 package jp.co.example.ecommerce_c.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +46,18 @@ public class SortController {
 				itemList3.add(itemList2);
 				itemList2 = new ArrayList<>();
 			}
+			
 		}
-
 		model.addAttribute("itemList3", itemList3);
+		
+		if ()
+		
 		
 		return "/item_list_toy";
 
 	}
 }
+
+
+
+
