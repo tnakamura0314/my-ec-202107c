@@ -51,9 +51,23 @@ public class SortService {
 		return itemList;
 	}
 	
-	
+	/**
+	 * 商品情報を名前の昇順で表示する.
+	 * @param name 商品名
+	 * @return 商品名の昇順で並び替えられた商品情報
+	 */
 	public List<Item> nameSortAsc(String name){
 		List<Item> itemList = repository.findByNameAsc(name);
+		return itemList;
+	}
+	
+	/**
+	 * 商品情報を名前の降順で表示する.
+	 * @param name 商品名
+	 * @return 商品名の降順で並び替えられた商品情報
+	 */
+	public List<Item> nameSortDesc(String name){
+		List<Item> itemList = repository.findByNameDesc(name);
 		return itemList;
 	}
 

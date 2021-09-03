@@ -1,7 +1,6 @@
 package jp.co.example.ecommerce_c.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import jp.co.example.ecommerce_c.service.ShowItemListService;
 public class SortController {
 	
 	@Autowired
-	private ShowItemListService service;
+	private ShowItemListService service;	
 	
 	@ModelAttribute
 	public SortForm setUpForm() {
@@ -29,8 +28,17 @@ public class SortController {
 	
 	
 
-	@RequestMapping("/priceSortList")
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("")
 	public String priceSortList(Model model) {
+		
+		
+		
+		
 		
 		List<List<Item>> itemList3 = new ArrayList<>();
 		List<Item> itemList2 = new ArrayList<>();
@@ -48,16 +56,17 @@ public class SortController {
 			}
 			
 		}
-		model.addAttribute("itemList3", itemList3);
 		
-		if ()
+		model.addAttribute("itemList3", itemList3);
 		
 		
 		return "/item_list_toy";
 
 	}
-}
 
+
+
+}
 
 
 
