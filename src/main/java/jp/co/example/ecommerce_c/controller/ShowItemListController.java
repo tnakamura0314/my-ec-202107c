@@ -59,8 +59,10 @@ public class ShowItemListController {
 		model.addAttribute("itemList3", itemList3);
 
 		return "/item_list_toy";
-
 	}
+		
+		
+		
 
 	/**
 	 * 商品名で曖昧検索をする.
