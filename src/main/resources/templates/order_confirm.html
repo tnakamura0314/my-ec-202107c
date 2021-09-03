@@ -55,7 +55,7 @@
 					<tbody>
 						<tr>
 							<th>
-								<div class="text-center" >
+								<div class="text-center">
 									商品名
 								</div>
 							</th>
@@ -74,35 +74,43 @@
 									小計
 								</div>
 							</th>
+							<th>
+							</th>
 						</tr>
-						<!-- <tr th:each="order : ${orderList}">
+						<tr th:each="orderItem:${order.orderItemList}">
 							<td>
 								<div class="center">
-									<img src="../static/img_pizza/1.jpg" th:src="@{/img_toy/} + ${order.imagePath}"
+									<img src="../static/img_pizza/1.jpg" th:src="@{/img_toy/}+${orderItem.item.imagePath}"
 										class="img-responsive img-rounded item-img-center" width="100" height="300"><br>
-									<div th:text="${order.i_name}">商品名</div>
+									<span th:text="${orderItem.item.name}">じゃがバターベーコン</span>
 								</div>
 							</td>
 							<td>
-								<span class="price" th:text="${order.size}">サイズ</span>
-								<span th:text="${order.totalPrice}">金額</span>
-								<span th:text="${order.quantity}">個数</span>
+								<span class="price" th:text="${orderItem.size}">&nbsp;Ｌ</span>&nbsp;&nbsp;
+								<span th:if="${orderItem.size} == M" th:text="${orderItem.item.priceM}">2,380</span>
+								<span th:if="${orderItem.size} == L" th:text="${orderItem.item.priceL}">2,380</span>円
+								&nbsp;&nbsp;
+								<span th:text="${orderItem.quantity}">1</span>個
 							</td>
-							<td th:each="orderList : ${order.orderItemList}">
-								<ul th:each="topping : ${orderList.orderToppingList}">
-									<li>
-									  <span th:text="${topping.name}">トッピング名</span>
-									  <span >金額</span>
-									</li>
-									
+							<td>
+								<ul>
+									<li th:each="topping:${orderItem.orderToppingList}"><span th:text="${topping.topping.name}"></span></li>
 								</ul>
 							</td>
 							<td>
 								<div class="text-center">
-									3,280円
+									<span th:if="${orderItem.size} == M"
+										th:text="${orderItem.quantity} * ${orderItem.item.priceM} + ${orderItem.quantity} * ${orderItem.orderToppingList.size()} * 200">3,280</span>
+									<span th:if="${orderItem.size} == L"
+										th:text="${orderItem.quantity} * ${orderItem.item.priceL} + ${orderItem.quantity} * ${orderItem.orderToppingList.size()} * 300">3,280</span>円
 								</div>
 							</td>
-						</tr> -->
+							<td>
+								<div class="text-center">
+									<button type="submit" class="btn btn-primary">削除</button>
+								</div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>

@@ -3,33 +3,25 @@ package jp.co.example.ecommerce_c.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import jp.co.example.ecommerce_c.domain.Order;
 import jp.co.example.ecommerce_c.domain.OrderItem;
 import jp.co.example.ecommerce_c.domain.OrderTopping;
 import jp.co.example.ecommerce_c.domain.Status;
-import jp.co.example.ecommerce_c.form.OrderForm;
 import jp.co.example.ecommerce_c.repository.OrderRepository;
 
 /**
- * 注文情報を操作するサービス.
- * 
- * @author nakamuratomoya
+ * ショッピングカート一覧を表示するサービスクラス.
+ * @author kanekojota
  *
  */
 @Service
 @Transactional
-public class ShowOrderConfirmationService {
-	
+public class ShowCartService {
+
 	@Autowired
 	private OrderRepository orderRepository;
-	
-	@ModelAttribute
-	public OrderForm setUpForm(){
-		return new OrderForm();
-	}
-	
+
 	/**
 	 * ショッピングカートの商品一覧を取得します.
 	 * @param userId ログイン中のユーザー
@@ -68,5 +60,4 @@ public class ShowOrderConfirmationService {
 		order.setTotalPrice(totalPrice);
 		return order;
 	}
-
 }
