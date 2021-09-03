@@ -15,6 +15,11 @@ import jp.co.example.ecommerce_c.repository.OrderRepository;
 import jp.co.example.ecommerce_c.repository.OrderToppingRepository;
 import jp.co.example.ecommerce_c.repository.ToppingRepository;
 
+/**
+ * ショッピングカートに商品を追加するためのサービス.
+ * @author kanekojota
+ *
+ */
 @Service
 @Transactional
 public class AddCartService {
@@ -32,14 +37,19 @@ public class AddCartService {
 	private ToppingRepository toppingRepository;
 
 
+	/**
+	 * ショッピングカートに商品を追加する.
+	 * @param userId ユーザーId
+	 * @param form 入力された商品データ
+	 */
 	public void addShoppingCart(int userId, AddCartForm form) {
 		int status = Status.BOFORE_ORDER.getKey();
-		int totalPrice = 100;
+		int defaultTotalPrice = 100;
 		Order order = orderRepository.findByUserIdAndStatus(userId, status);
 		if (order.getId() == null) {
 			order.setUserId(userId);
 			order.setStatus(status);
-			order.setTotalPrice(0);
+			order.setTotalPrice(defaultTotalPrice);
 			order = orderRepository.insert(order);
 		}
 		System.out.println(order);

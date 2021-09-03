@@ -111,7 +111,6 @@ public class OrderRepository {
 					item.setDeleted(rs.getBoolean("i_deleted"));
 					toppingList = new ArrayList<Topping>();
 					item.setToppingList(toppingList);
-
 					orderItem.setItem(item);
 				}
 				
@@ -196,8 +195,8 @@ public class OrderRepository {
 				   + ", ot.id ot_id, ot.topping_id ot_topping_id, ot.order_item_id ot_order_item_id "
 				   + ", i.id i_id, i.name i_name, i.description i_description, i.price_m i_price_m, i.price_l i_price_l, i.image_path i_image_path, i.deleted i_deleted"
 				   + ", t.id t_id, t.name t_name, t.price_m t_price_m, t.price_l t_price_l"
-				   + " FROM orders AS o LEFT OUTER JOIN order_items AS oi ON o.id = oi.order_id LEFT OUTER JOIN order_toppings AS ot ON oi.id = ot.order_item_id LEFT OUTER JOIN items AS i ON oi.id = i.id LEFT OUTER JOIN toppings AS t ON ot.topping_id = t.id"
-				   + " WHERE o.user_id=:userID AND o.status=:status;";
+				   + " FROM orders AS o LEFT OUTER JOIN order_items AS oi ON o.id = oi.order_id LEFT OUTER JOIN order_toppings AS ot ON oi.id = ot.order_item_id LEFT OUTER JOIN items AS i ON oi.item_id = i.id LEFT OUTER JOIN toppings AS t ON ot.topping_id = t.id"
+				   + " WHERE o.user_id=:userID AND o.status=:status ORDER BY oi_id DESC;";
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userID", userId).addValue("status", status);
 		
