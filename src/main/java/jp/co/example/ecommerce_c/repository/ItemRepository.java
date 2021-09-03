@@ -89,7 +89,7 @@ public class ItemRepository {
 	 * @param price_m Mの金額
 	 * @return 金額が昇順でソートされた商品リスト
 	 */
-	public List<Item> findByPriceA(Integer price_m){
+	public List<Item> findByPriceAsc(Integer price_m){
 		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("price_m", price_m);
 
@@ -102,11 +102,39 @@ public class ItemRepository {
 	 * @param price_m Mの金額
 	 * @return 金額が降順でソートされた商品リスト
 	 */
-	public List<Item> findByPriceD(Integer price_m){
+	public List<Item> findByPriceDesc(Integer price_m){
 		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m DESC;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("price_m", price_m);
 
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
+	
+	/**
+	 * 名前を昇順でソート.
+	 * @param name 商品名
+	 * @return 商品名が昇順でソートされた商品リスト
+	 */
+	public List<Item> findByNameAsc(String name){
+		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY name;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
+
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		return itemList;
+	}
+	
+	/**
+	 * 名前を降順でソート.
+	 * @param name 商品名
+	 * @return 商品名が降順でソートされた商品リスト
+	 */
+	public List<Item> findByNameDesc(String name){
+		String sql = "SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY name DESC;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
+
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		return itemList;
+	}
+	
+	
 }
