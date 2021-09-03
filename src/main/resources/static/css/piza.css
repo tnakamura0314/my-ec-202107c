@@ -12,6 +12,10 @@ span.price {
 	-webkit-border-radius: 50%;
 	-moz-border-radius: 50%;
 }
+/* 消費税の文字の大きさを変える */
+span#tax {
+	font-size: 35px;
+}
 /* 合計金額の文字の大きさを変える */
 span#total-price {
 	font-size: 35px;
