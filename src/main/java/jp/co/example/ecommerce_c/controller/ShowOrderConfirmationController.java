@@ -45,10 +45,6 @@ public class ShowOrderConfirmationController {
 		model.addAttribute("order", order);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("tax", tax);
-		
-		System.out.println(order);
-		System.out.println(totalPrice);
-		System.out.println(tax);
 		return "/order_confirm";
 	}
 
