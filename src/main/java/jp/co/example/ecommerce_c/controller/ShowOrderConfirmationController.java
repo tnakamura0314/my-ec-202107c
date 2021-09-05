@@ -42,6 +42,9 @@ public class ShowOrderConfirmationController {
 		int subtotalPrice = order.getTotalPrice();
 		int tax = (int) (subtotalPrice * 0.1);
 		int totalPrice = subtotalPrice + tax;
+		if(totalPrice == 0) {
+			model.addAttribute("noItemMessage","カートに商品がありません。");
+		}
 		model.addAttribute("order", order);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("tax", tax);
