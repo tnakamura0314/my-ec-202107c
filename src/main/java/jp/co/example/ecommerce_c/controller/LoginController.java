@@ -60,6 +60,8 @@ public class LoginController {
 			return toLogin();
 		}
 		session.setAttribute("userName", user.getName());
+		//ユーザー情報取得のため追加しました。（金子）
+		session.setAttribute("user", user);
 		return "forward:/showItem/showItemList";
 	}
 
