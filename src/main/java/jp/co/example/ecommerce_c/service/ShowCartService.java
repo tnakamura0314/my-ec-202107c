@@ -57,7 +57,7 @@ public class ShowCartService {
 				}
 			}
 		}
-		order.setTotalPrice(totalPrice);
+		System.out.println(totalPrice);
 		return order;
 	}
 }

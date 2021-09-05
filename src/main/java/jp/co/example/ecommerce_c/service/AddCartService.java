@@ -44,7 +44,7 @@ public class AddCartService {
 	 */
 	public void addShoppingCart(int userId, AddCartForm form) {
 		int status = Status.BOFORE_ORDER.getKey();
-		int defaultTotalPrice = 100;
+		int defaultTotalPrice = 0;
 		Order order = orderRepository.findByUserIdAndStatus(userId, status);
 		if (order.getId() == null) {
 			order.setUserId(userId);
