@@ -68,9 +68,13 @@ public class OrderController {
 		if (result.hasErrors()) {
 			return showOrderConfirmation(model);
 		}
-
-		orderService.update(form,model);
-		return "redirect:/order-confirm/toComplete";
+			boolean judge = orderService.update(form);
+			if(!judge) {
+				model.addAttribute("timeErrorMessage", "今から3時間後の日時をご入力ください");
+				return showOrderConfirmation(model);
+			}else {
+				return "redirect:/order-confirm/toComplete";				
+			}
 	}
 	
 	/**
