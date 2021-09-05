@@ -117,90 +117,38 @@ public class ShowItemListController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("")
+	@RequestMapping("/sort")
 	public String priceSortList(String sort, Model model) {
-
-		// 名前の昇順
+		List<Item> itemList = null;
 		if (sort.equals("1")) {
-
-			List<List<Item>> itemList3 = new ArrayList<>();
-			List<Item> itemList2 = new ArrayList<>();
-			List<Item> itemList = service.nameSortAsc(sort);
-			int roopCount = 0;
-
-			for (Item item : itemList) {
-
-				itemList2.add(item);
-				roopCount++;
-
-				if (roopCount % 3 == 0) {
-					itemList3.add(itemList2);
-					itemList2 = new ArrayList<>();
-				}
-			}
-			model.addAttribute("itemList3", itemList3);
-			return "/item_list_toy";
-
-			// 名前の降順
-		} else if (sort.equals("2")) {
-			List<List<Item>> itemList3 = new ArrayList<>();
-			List<Item> itemList2 = new ArrayList<>();
-			List<Item> itemList = service.nameSortDesc(sort);
-			int roopCount = 0;
-
-			for (Item item : itemList) {
-
-				itemList2.add(item);
-				roopCount++;
-
-				if (roopCount % 3 == 0) {
-					itemList3.add(itemList2);
-					itemList2 = new ArrayList<>();
-				}
-			}
-			model.addAttribute("itemList3", itemList3);
-			return "/item_list_toy";
-
-			// 金額の昇順
-		} else if (sort.equals("3")) {
-			List<List<Item>> itemList3 = new ArrayList<>();
-			List<Item> itemList2 = new ArrayList<>();
-			List<Item> itemList = service.priceSortAsc(sort);
-			int roopCount = 0;
-
-			for (Item item : itemList) {
-
-				itemList2.add(item);
-				roopCount++;
-
-				if (roopCount % 3 == 0) {
-					itemList3.add(itemList2);
-					itemList2 = new ArrayList<>();
-				}
-			}
-			model.addAttribute("itemList3", itemList3);
-			return "/item_list_toy";
-
-			// 金額の降順
-		} else if (sort.equals("4")) {
-			List<List<Item>> itemList3 = new ArrayList<>();
-			List<Item> itemList2 = new ArrayList<>();
-			List<Item> itemList = service.priceSortDesc(sort);
-			int roopCount = 0;
-
-			for (Item item : itemList) {
-
-				itemList2.add(item);
-				roopCount++;
-
-				if (roopCount % 3 == 0) {
-					itemList3.add(itemList2);
-					itemList2 = new ArrayList<>();
-				}
-			}
-			model.addAttribute("itemList3", itemList3);
+			itemList = service.nameSortAsc(sort);
+		}else if(sort.equals("2")) {
+			itemList = service.nameSortDesc(sort);
+		}else if(sort.equals("3")) {
+			itemList = service.priceSortAsc(sort);
+		}else if(sort.equals("4")) {
+			itemList = service.priceSortDesc(sort);	
 		}
-		return "/item_list_toy";
-	}
+
+			List<List<Item>> itemList3 = new ArrayList<>();
+			List<Item> itemList2 = new ArrayList<>();
+			
+			int roopCount = 0;
+
+			for (Item item : itemList) {
+
+				itemList2.add(item);
+				roopCount++;
+
+				if (roopCount % 3 == 0) {
+					itemList3.add(itemList2);
+					itemList2 = new ArrayList<>();
+				}
+			}
+			model.addAttribute("itemList3", itemList3);
+			return "/item_list_toy";
+
+		}
+		
 
 }

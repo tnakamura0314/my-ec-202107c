@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+#1 {
+	cursor: pointer;
+	padding-bottom: 1vh;
+	 position: relative;
+	text-decoration: none;
+}
+
+.2 {
+	position: absolute;
+	border-bottom: 0.4vh solid black;
+	transition: all 0.3s ease 0s;
+	
+	
+}
+
