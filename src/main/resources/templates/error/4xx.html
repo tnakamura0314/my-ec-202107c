@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>404, Page Not Found</title>
+<link th:href="@{/css/4xx.css}" rel="stylesheet">
+</head>
+<body>
+
+<div id="main">
+      <div class="fof">
+            <h1>Error 404</h1>
+      </div>
+</div>
+<pre>
+I'm sorry. The page you were looking for was not found.
+
+Please log in again from the link below.
+
+</pre>
+
+<a th:href="@{/login}" class="navbar-link">Login Page</a>
+
+</body>
+</html>
