@@ -60,6 +60,22 @@ public class UserRepository {
 		return userList.get(0);
 	}
 	
+	/**
+	 * ユーザー情報を主キー検索します.
+	 * @param id ユーザーId
+	 * @return
+	 */
+	public User load(Integer id) {
+		String sql = "SELECT id,name, email, password, zipcode, address, telephone FROM users where id=:id;";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		if (userList.size() == 0) {
+			return null;
+		}
+		return userList.get(0);
+	}
+	
 
 	/**
 	 * 新規ユーザーをテーブルに挿入する

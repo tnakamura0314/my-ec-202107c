@@ -36,15 +36,22 @@ public class ShowCartController {
 	@RequestMapping("")
 	public String showCart(Model model) {
 		User user = (User) sessison.getAttribute("user");
-		Integer userId = user.getId();
-		Order order = showCartService.showShoppingCart(userId);
+		Order order = null;
+		if (user == null) {
+			Integer noLoginUserId = (Integer) sessison.getAttribute("noLoginUserId");
+			System.out.println("未ログインユーザー：" + noLoginUserId);
+			order = showCartService.showShoppingCart(noLoginUserId);
+		} else {
+			Integer userId = user.getId();
+			order = showCartService.showShoppingCart(userId);
+		}
 		int subtotalPrice = order.getTotalPrice();
-		int tax = (int)(subtotalPrice * 0.1);
+		int tax = (int) (subtotalPrice * 0.1);
 		int totalPrice = subtotalPrice + tax;
-		if(totalPrice == 0) {
-			model.addAttribute("noItemMessage","カートに商品がありません。");
-		}		
-		model.addAttribute("order", order);		
+		if (totalPrice == 0) {
+			model.addAttribute("noItemMessage", "カートに商品がありません。");
+		}
+		model.addAttribute("order", order);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("tax", tax);
 		return "cart_list";
