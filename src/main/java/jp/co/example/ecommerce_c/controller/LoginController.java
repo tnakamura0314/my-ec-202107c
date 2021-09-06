@@ -62,7 +62,7 @@ public class LoginController {
 		session.setAttribute("userName", user.getName());
 		//ユーザー情報取得のため追加しました。（金子）
 		session.setAttribute("user", user);
-		return "forward:/showItem/showItemList";
+		return "forward:/";
 	}
 
 //　通常のログインは完成

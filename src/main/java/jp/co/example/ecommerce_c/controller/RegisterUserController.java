@@ -44,7 +44,6 @@ public class RegisterUserController {
 	public String registerUser(@Validated RegisterUserForm form, BindingResult result) {
 		// パスワード確認
 		if (!(form.getConfirmPassword().equals(form.getPassword()))) {
-			result.rejectValue("password", "", "パスワードと確認用パスワードが不一致です。");
 			result.rejectValue("confirmPassword", "", "パスワードと確認用パスワードが不一致です。");
 		}
 
