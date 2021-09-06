@@ -27,7 +27,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" th:href="@{/showItem/showItemList}"> <!-- 企業ロゴ -->
+					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ -->
 						<img alt="main log" th:src="@{/img_toy/header_logo.png}"
 						height="35">
 					</a>
@@ -65,7 +65,7 @@
 						<div class="panel-title">商品を検索する</div>
 					</div>
 				<div class="panel-body">
-					<form method="post" th:action="@{/showItem/showItemNameList}"
+					<form method="post" th:action="@{/showItemNameList}"
 						class="form-horizontal" th:object="${showItemListForm}">
 						<div class="form-group">
 							<div th:text="${errorMessage}" style="color: red;"></div>
@@ -94,13 +94,13 @@
 		class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 		<div id="1">
 			<span>並び順：</span> <span class="2"><a
-				th:href="@{/showItem/sort?sort=}+1">名前の昇順<i
+				th:href="@{/sort?sort=}+1">名前の昇順<i
 					class="fas fa-angle-right fa-position-right"></i></a></span> <span class="2"><a
-				th:href="@{/showItem/sort?sort=}+2">名前の降順<i
+				th:href="@{/sort?sort=}+2">名前の降順<i
 					class="fas fa-angle-right fa-position-right"></i></a></span> <span class="2"><a
-				th:href="@{/showItem/sort?sort=}+3">金額の昇順<i
+				th:href="@{/sort?sort=}+3">金額の昇順<i
 					class="fas fa-angle-right fa-position-right"></i></a></span> <span class="2"><a
-				th:href="@{/showItem/sort?sort=}+4">金額の降順<i
+				th:href="@{/sort?sort=}+4">金額の降順<i
 					class="fas fa-angle-right fa-position-right"></i></a></span>
 
 		</div>
@@ -139,7 +139,7 @@
 				<!-- ページング機能 -->
 				<div th:if="${itemPage.totalPages > 0}" class="pagination"
 				    th:each="pageNumber : ${pageNumbers}">
-				    <a th:href="@{/showItem/showItemList(size=${itemPage.size}, page=${pageNumber}, searchName=${searchName})}"
+				    <a th:href="@{/(size=${itemPage.size}, page=${pageNumber}, searchName=${searchName})}"
 				        th:text=${pageNumber}
 				        th:class="${pageNumber==itemPage.number + 1} ? active" style="font-size:2em"></a>
 				        <span style="font-size:2em"></span>
