@@ -53,7 +53,7 @@ public class OrderService {
 			Order order = orderRepository.load(form.getId());
 			// フォームからドメインにプロパティ値をコピー
 			BeanUtils.copyProperties(form, order);
-
+			
 			// フォームとドメインで型が異なるものをコピー
 			String strDate = form.getDeliveryDate() + "-" + form.getDeliveryTime() + "-00-00";
 			System.out.println(strDate);
