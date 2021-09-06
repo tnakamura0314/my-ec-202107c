@@ -50,6 +50,47 @@ public class ShowItemListService {
 		
 		return itemList;
 	}
+	
+	/**
+	 * 商品情報を値段の昇順で表示する.
+	 * @param price_m Mの値段
+	 * @return 値段の昇順で並び替えられた商品情報
+	 */
+	public List<Item> priceSortAsc(String sort){
+		List<Item> itemList = repository.findByPriceAsc(sort);
+		return itemList;
+	}
+	
+	
+	/**
+	 * 商品情報を値段の降順で表示する.
+	 * @param price_m Mの値段
+	 * @return 値段の降順で並び替えられた商品情報
+	 */
+	public List<Item> priceSortDesc(String sort){
+		List<Item> itemList = repository.findByPriceDesc(sort);
+		return itemList;
+	}
+	
+	/**
+	 * 商品情報を名前の昇順で表示する.
+	 * @param name 商品名
+	 * @return 商品名の昇順で並び替えられた商品情報
+	 */
+	public List<Item> nameSortAsc(String sort){
+		List<Item> itemList = repository.findByNameAsc(sort);
+		return itemList;
+	}
+	
+	/**
+	 * 商品情報を名前の降順で表示する.
+	 * @param name 商品名
+	 * @return 商品名の降順で並び替えられた商品情報
+	 */
+	public List<Item> nameSortDesc(String sort){
+		List<Item> itemList = repository.findByNameDesc(sort);
+		return itemList;
+	}
 
 	/**
 	 * ページング用メソッド.
