@@ -208,7 +208,23 @@ public class OrderRepository {
 		template.update(sql.toString(), param);
 
 	}
+	/**
+	 * 渡した注文の合計金額を更新する.
+	 * 
+	 * @param Order 更新する注文情報
+	 */
+	public void updateTotalPrice(Integer id,Integer totalPrice) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE orders SET total_price=:totalPrice WHERE id=:id");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id).addValue("totalPrice", totalPrice);
+		template.update(sql.toString(), param);
+	}
 
+	/**
+	 * 注文情報を挿入する.
+	 * @param order 注文情報
+	 * @return
+	 */
 	public Order insert(Order order) {
 		String sql = "insert into orders (user_id,status,total_price) values(:userId,:status,:totalPrice);";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", order.getUserId())
@@ -230,7 +246,6 @@ public class OrderRepository {
 		Order order = template.query(sql, param, ARTICLE_RESULT_SET_EXTRATOR);
 
 		return order;
-
 	}
 
 	public Order findByUserIdAndStatusOfOrderHistory(Integer userId, Integer status, Integer status2) {

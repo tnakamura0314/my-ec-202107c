@@ -42,13 +42,13 @@ public class ShowOrderConfirmationController {
 		int subtotalPrice = order.getTotalPrice();
 		int tax = (int) (subtotalPrice * 0.1);
 		int totalPrice = subtotalPrice + tax;
+		System.out.println("合計金額"+totalPrice);
+		if(totalPrice == 0) {
+			model.addAttribute("noItemMessage","カートに商品がありません。");
+		}
 		model.addAttribute("order", order);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("tax", tax);
-		
-		System.out.println(order);
-		System.out.println(totalPrice);
-		System.out.println(tax);
 		return "/order_confirm";
 	}
 
