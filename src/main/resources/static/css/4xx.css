@@ -1,4 +1,6 @@
 @charset "UTF-8";
 body { 
-	background-image: url(/img_toy/error.jpg);
+	background-image: url(../../static/img_toy/error.jpg);
+	background-size: cover;	
+	color: #808080;
 }

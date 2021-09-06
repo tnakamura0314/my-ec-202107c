@@ -3,23 +3,24 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<link th:href="@{/css/4xx.css}" rel="stylesheet">
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>404, Page Not Found</title>
+<link href="../../static/css/4xx.css" th:href="@{/css/4xx.css}" rel="stylesheet">
 </head>
 <body>
 
 <h1>Error 404</h1>
 
-<pre>
-404 Not Found
-申し訳ございません。お探しのページは見つかりませんでした。
 
-以下のリンクからログインし直してください。
+<h4>404 Not Found</h4>
+申し訳ございません。<br>
+お探しのページは見つかりませんでした。
+<br><br><br>
 
-</pre>
+以下のリンクからログインし直してください。<br>
+
 
 <a href="login.html" th:href="@{/login}" class="navbar-link">Login Page</a>
 
