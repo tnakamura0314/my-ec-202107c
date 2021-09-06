@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +27,8 @@ public class ShowItemListController {
 	@Autowired
 	private ShowItemListService service;
 
+	private static final int VIEW_SIZE = 9;
+
 	@ModelAttribute
 	public ShowItemListForm setUpForm() {
 		return new ShowItemListForm();
@@ -38,14 +41,26 @@ public class ShowItemListController {
 	 * @return 商品一覧画面
 	 */
 	@RequestMapping("/showItemList")
-	public String showItemList(Model model) {
+	public String showItemList(Model model, Integer page) {
+		
+		// ページング機能追加
+		if (page == null) {
+			// ページ数の指定が無い場合は1ページ目を表示させる
+			page = 1;
+		}
+
+		List<Item> itemList = service.showItemList();
+
+		// 表示させたいページ数、ページサイズ、商品リストを渡し１ページに表示させる商品リストを絞り込み
+		Page<Item> itemPage = service.showListPaging(page, VIEW_SIZE, itemList);
+
+		model.addAttribute("itemPage", itemPage);
 
 		List<List<Item>> itemList3 = new ArrayList<>();
 		List<Item> itemList2 = new ArrayList<>();
-		List<Item> itemList = service.showItemList();
 		int roopCount = 0;
 
-		for (Item item : itemList) {
+		for (Item item : itemPage) {
 
 			itemList2.add(item);
 			roopCount++;
@@ -57,8 +72,26 @@ public class ShowItemListController {
 		}
 
 		model.addAttribute("itemList3", itemList3);
+		//オートコンプリート実装のため追加しました。（金子）
+		model.addAttribute("itemList", itemList);
+
+		// ページングのリンクに使うページ数をスコープに格納
+		List<Integer> pageNumbers = calcPageNumbers(model, itemPage);
+		model.addAttribute("pageNumbers", pageNumbers);
 
 		return "/item_list_toy";
+	}
+
+	private List<Integer> calcPageNumbers(Model model, Page<Item> itemPage) {
+		int totalPages = itemPage.getTotalPages();
+		List<Integer> pageNumbers = null;
+		if (totalPages > 0) {
+			pageNumbers = new ArrayList<Integer>();
+			for (int i = 1; i <= totalPages; i++) {
+				pageNumbers.add(i);
+			}
+		}
+		return pageNumbers;
 	}
 
 	/**
@@ -69,11 +102,15 @@ public class ShowItemListController {
 	 * @return 検索名に該当する商品情報
 	 */
 	@RequestMapping("/showItemNameList")
-	public String showItemNameList(ShowItemListForm showItemListForm, Model model) {
+	public String showItemNameList(ShowItemListForm showItemListForm, Model model, Integer page) {
+
+		if (page == null) {
+			page = 1;
+		}
 
 		if (showItemListForm.getName().equals("")) {
 			model.addAttribute("errorMessage", "検索結果が1件もありませんでした");
-			showItemList(model);
+			showItemList(model,page);
 			return "/item_list_toy";
 		}
 
@@ -81,15 +118,19 @@ public class ShowItemListController {
 
 		if (itemList == null) {
 			model.addAttribute("errorMessage", "検索結果が1件もありませんでした");
-			showItemList(model);
+			showItemList(model,page);
 			return "/item_list_toy";
 		}
+
+		Page<Item> itemPage = service.showListPaging(page, VIEW_SIZE, itemList);
+		
+		model.addAttribute("itemPage", itemPage);
 
 		List<List<Item>> itemList3 = new ArrayList<>();
 		List<Item> itemList2 = new ArrayList<>();
 		int roopCount = 0;
 
-		for (Item item : itemList) {
+		for (Item item : itemPage) {
 
 			itemList2.add(item);
 			roopCount++;
@@ -107,6 +148,9 @@ public class ShowItemListController {
 		}
 
 		model.addAttribute("itemList3", itemList3);
+
+		List<Integer> pageNumbers = calcPageNumbers(model, itemPage);
+		model.addAttribute("pageNumbers", pageNumbers);
 
 		return "/item_list_toy";
 
