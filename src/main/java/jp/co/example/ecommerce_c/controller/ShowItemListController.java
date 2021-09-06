@@ -42,7 +42,7 @@ public class ShowItemListController {
 	 */
 	@RequestMapping("/showItemList")
 	public String showItemList(Model model, Integer page) {
-
+		
 		// ページング機能追加
 		if (page == null) {
 			// ページ数の指定が無い場合は1ページ目を表示させる
@@ -80,7 +80,6 @@ public class ShowItemListController {
 		model.addAttribute("pageNumbers", pageNumbers);
 
 		return "/item_list_toy";
-
 	}
 
 	private List<Integer> calcPageNumbers(Model model, Page<Item> itemPage) {
@@ -156,5 +155,44 @@ public class ShowItemListController {
 		return "/item_list_toy";
 
 	}
+
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/sort")
+	public String priceSortList(String sort, Model model) {
+		List<Item> itemList = null;
+		if (sort.equals("1")) {
+			itemList = service.nameSortAsc(sort);
+		}else if(sort.equals("2")) {
+			itemList = service.nameSortDesc(sort);
+		}else if(sort.equals("3")) {
+			itemList = service.priceSortAsc(sort);
+		}else if(sort.equals("4")) {
+			itemList = service.priceSortDesc(sort);	
+		}
+
+			List<List<Item>> itemList3 = new ArrayList<>();
+			List<Item> itemList2 = new ArrayList<>();
+			
+			int roopCount = 0;
+
+			for (Item item : itemList) {
+
+				itemList2.add(item);
+				roopCount++;
+
+				if (roopCount % 3 == 0) {
+					itemList3.add(itemList2);
+					itemList2 = new ArrayList<>();
+				}
+			}
+			model.addAttribute("itemList3", itemList3);
+			return "/item_list_toy";
+
+		}
+		
 
 }
