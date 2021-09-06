@@ -46,7 +46,7 @@ public class OrderHistoryController {
 		Integer userId = user.getId();
 		System.out.println("before" + userId);
 		Order order = service.orderHistory(userId);
-		System.out.println("after" + order.getId());
+		System.out.println("after" + order.getUserId());
 		int subtotalPrice = order.getTotalPrice();
 		int tax = (int) (subtotalPrice * 0.1);
 		int totalPrice = subtotalPrice + tax;
