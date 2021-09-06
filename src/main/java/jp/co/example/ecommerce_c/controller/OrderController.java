@@ -53,6 +53,7 @@ public class OrderController {
 	@RequestMapping("")
 	public String showOrderConfirmation(Model model) {
 		User user = (User) sessison.getAttribute("user");
+	
 		Integer userId = user.getId();
 		Order order = orderConfirmationService.showShoppingCart(userId);
 		int subtotalPrice = order.getTotalPrice();
@@ -61,7 +62,9 @@ public class OrderController {
 		model.addAttribute("order", order);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("tax", tax);
+		
 		return "/order_confirm";
+		
 	}
 	
 	/**
