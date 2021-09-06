@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+.fadeslide {
+	position: relative;
+	width: 150px;
+	height: 100px;
+	overflow: hidden;
+	z-index: 0;
+}
+
+.fadeslide div {
+	position: absolute;
+	width: 150px;
+	height: 100px;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+}
+
+.fadeslide div:nth-of-type(1) {
+	animation: fadeslide 30s 0s infinite both;
+	z-index: 6;
+}
+
+.fadeslide div:nth-of-type(2) {
+	animation: fadeslide 30s 5s infinite both;
+	z-index: 5;
+}
+
+.fadeslide div:nth-of-type(3) {
+	animation: fadeslide 30s 10s infinite both;
+	z-index: 4;
+}
+
+.fadeslide div:nth-of-type(4) {
+	animation: fadeslide 30s 15s infinite both;
+	z-index: 3;
+}
+
+.fadeslide div:nth-of-type(5) {
+	animation: fadeslide 30s 20s infinite both;
+	z-index: 2;
+}
+
+.fadeslide div:nth-of-type(6) {
+	animation: fadeslide 30s 25s infinite both;
+	z-index: 1;
+}
+
+@keyframes fadeslide {
+	0% { left: 0; opacity: 0; }
+	5% { left: 0; opacity: 1; }
+	20% { left: 0; opacity: 1; }
+	25% { left: 0; opacity: 0; }
+	26% { left: 100%; opacity: 0; }
+	100% { left: 100%; opacity: 0; }
+}
