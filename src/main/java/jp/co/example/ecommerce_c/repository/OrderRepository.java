@@ -34,6 +34,12 @@ public class OrderRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
+	private static final String SAME_SQL = "SELECT o.id o_id, o.user_id o_user_id, o.status o_status, o.total_price o_total_price, o.order_date o_order_date, o.destination_name o_destination_name, o.destination_email o_destination_email, o.destination_zipcode o_destination_zipcode, o.destination_address o_destination_address, o.destination_tel o_destination_tel, o.delivery_time o_delivery_time, o.payment_method o_payment_method"
+			+ ", oi.id oi_id, oi.item_id oi_item_id, oi.order_id oi_order_id, oi.quantity oi_quantity, oi.size oi_size"
+			+ ", ot.id ot_id, ot.topping_id ot_topping_id, ot.order_item_id ot_order_item_id "
+			+ ", i.id i_id, i.name i_name, i.description i_description, i.price_m i_price_m, i.price_l i_price_l, i.image_path i_image_path, i.deleted i_deleted"
+			+ ", t.id t_id, t.name t_name, t.price_m t_price_m, t.price_l t_price_l"
+			+ " FROM orders AS o LEFT OUTER JOIN order_items AS oi ON o.id = oi.order_id LEFT OUTER JOIN order_toppings AS ot ON oi.id = ot.order_item_id LEFT OUTER JOIN items AS i ON oi.item_id = i.id LEFT OUTER JOIN toppings AS t ON ot.topping_id = t.id";
 	/**
 	 * Articleオブジェクトを生成するローマッパー.
 	 */
@@ -202,7 +208,23 @@ public class OrderRepository {
 		template.update(sql.toString(), param);
 
 	}
+	/**
+	 * 渡した注文の合計金額を更新する.
+	 * 
+	 * @param Order 更新する注文情報
+	 */
+	public void updateTotalPrice(Integer id,Integer totalPrice) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE orders SET total_price=:totalPrice WHERE id=:id");
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id).addValue("totalPrice", totalPrice);
+		template.update(sql.toString(), param);
+	}
 
+	/**
+	 * 注文情報を挿入する.
+	 * @param order 注文情報
+	 * @return
+	 */
 	public Order insert(Order order) {
 		String sql = "insert into orders (user_id,status,total_price) values(:userId,:status,:totalPrice);";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", order.getUserId())
@@ -216,15 +238,24 @@ public class OrderRepository {
 
 	public Order findByUserIdAndStatus(Integer userId, Integer status) {
 
-		String sql = "SELECT o.id o_id, o.user_id o_user_id, o.status o_status, o.total_price o_total_price, o.order_date o_order_date, o.destination_name o_destination_name, o.destination_email o_destination_email, o.destination_zipcode o_destination_zipcode, o.destination_address o_destination_address, o.destination_tel o_destination_tel, o.delivery_time o_delivery_time, o.payment_method o_payment_method"
-				+ ", oi.id oi_id, oi.item_id oi_item_id, oi.order_id oi_order_id, oi.quantity oi_quantity, oi.size oi_size"
-				+ ", ot.id ot_id, ot.topping_id ot_topping_id, ot.order_item_id ot_order_item_id "
-				+ ", i.id i_id, i.name i_name, i.description i_description, i.price_m i_price_m, i.price_l i_price_l, i.image_path i_image_path, i.deleted i_deleted"
-				+ ", t.id t_id, t.name t_name, t.price_m t_price_m, t.price_l t_price_l"
-				+ " FROM orders AS o LEFT OUTER JOIN order_items AS oi ON o.id = oi.order_id LEFT OUTER JOIN order_toppings AS ot ON oi.id = ot.order_item_id LEFT OUTER JOIN items AS i ON oi.item_id = i.id LEFT OUTER JOIN toppings AS t ON ot.topping_id = t.id"
+		String sql = SAME_SQL 
 				+ " WHERE o.user_id=:userID AND o.status=:status ORDER BY oi_id DESC;";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userID", userId).addValue("status", status);
+
+		Order order = template.query(sql, param, ARTICLE_RESULT_SET_EXTRATOR);
+
+		return order;
+	}
+
+	public Order findByUserIdAndStatusOfOrderHistory(Integer userId, Integer status, Integer status2) {
+
+		System.out.println("repository" + userId);
+		String sql = SAME_SQL
+				+ " WHERE o.user_id=:userID AND (o.status=:status OR o.status=:status2) ORDER BY oi_id DESC;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userID", userId).addValue("status", status)
+				.addValue("status2", status2);
 
 		Order order = template.query(sql, param, ARTICLE_RESULT_SET_EXTRATOR);
 

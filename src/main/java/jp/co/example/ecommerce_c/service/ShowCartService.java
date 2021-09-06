@@ -12,6 +12,7 @@ import jp.co.example.ecommerce_c.repository.OrderRepository;
 
 /**
  * ショッピングカート一覧を表示するサービスクラス.
+ * 
  * @author kanekojota
  *
  */
@@ -24,6 +25,7 @@ public class ShowCartService {
 
 	/**
 	 * ショッピングカートの商品一覧を取得します.
+	 * 
 	 * @param userId ログイン中のユーザー
 	 * @return したショッピングカート一覧
 	 */
@@ -31,33 +33,43 @@ public class ShowCartService {
 		int totalPrice = 0;
 		int status = Status.BOFORE_ORDER.getKey();
 		Order order = orderRepository.findByUserIdAndStatus(userId, status);
+
 		if (order != null) {
+			if (order.getOrderItemList().size() == 0) {
+				totalPrice = 0;
+				order.setTotalPrice(totalPrice);
+				orderRepository.updateTotalPrice(order.getId(), totalPrice);
+			}
 			for (OrderItem orderItem : order.getOrderItemList()) {
 				// サイズによりトッピングの価格が異なるためサイズで場合分けする
 				if (orderItem.getSize() == 'M') {
-					int pizzaPriceM = orderItem.getItem().getPriceM();
-					totalPrice += pizzaPriceM;
+					int toyPriceM = orderItem.getItem().getPriceM();
+					totalPrice += toyPriceM * orderItem.getQuantity();
 					if (orderItem.getOrderToppingList() != null) {
 						int toppingPrice = 0;
 						for (OrderTopping orderTopping : orderItem.getOrderToppingList()) {
-							toppingPrice += orderTopping.getTopping().getPriceM();
+							toppingPrice += orderTopping.getTopping().getPriceM() * orderItem.getQuantity();
 						}
 						totalPrice += toppingPrice;
+						order.setTotalPrice(totalPrice);
+						orderRepository.updateTotalPrice(order.getId(), totalPrice);
 					}
 				} else if (orderItem.getSize() == 'L') {
-					int pizzaPriceL = orderItem.getItem().getPriceM();
-					totalPrice += pizzaPriceL;
+					int toyPriceL = orderItem.getItem().getPriceM();
+					totalPrice += toyPriceL * orderItem.getQuantity();
 					if (orderItem.getOrderToppingList() != null) {
 						int toppingPrice = 0;
 						for (OrderTopping orderTopping : orderItem.getOrderToppingList()) {
-							toppingPrice += orderTopping.getTopping().getPriceL();
+							toppingPrice += orderTopping.getTopping().getPriceL() * orderItem.getQuantity();
 						}
 						totalPrice += toppingPrice;
+						order.setTotalPrice(totalPrice);
+						orderRepository.updateTotalPrice(order.getId(), totalPrice);
 					}
 				}
+
 			}
 		}
-		order.setTotalPrice(totalPrice);
 		return order;
 	}
 }

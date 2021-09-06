@@ -11,15 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.example.ecommerce_c.domain.Order;
 import jp.co.example.ecommerce_c.domain.User;
 import jp.co.example.ecommerce_c.form.OrderForm;
-import jp.co.example.ecommerce_c.service.ShowOrderConfirmationService;
+import jp.co.example.ecommerce_c.service.OrderHistoryService;
 
+/**
+ * 商品注文履歴を操作するコントローラー.
+ * 
+ * @author nakamuratomoya
+ *
+ */
 @Controller
-@RequestMapping("/showOrderConfirmation")
-public class ShowOrderConfirmationController {
-
+@RequestMapping("/orderHistory")
+public class OrderHistoryController {
+	
 	@Autowired
-	private ShowOrderConfirmationService service;
-
+	private OrderHistoryService service;
+	
 	@Autowired
 	private HttpSession sessison;
 	
@@ -27,29 +33,31 @@ public class ShowOrderConfirmationController {
 	public OrderForm setUpForm() {
 		return new OrderForm();
 	}
-
+	
 	/**
-	 * 注文内容確認画面を表示する.
+	 * 注文履歴情報を表示する.
 	 * 
-	 * @param model 注文情報をリクエストスコープに格納
-	 * @return 注文内容確認画面へフォワードする.
+	 * @param model requestスコープ
+	 * @return　注文履歴情報(1件もなければメッセージ)
 	 */
 	@RequestMapping("")
-	public String showOrderConfirmation(Model model) {
+	public String orderHistory(Model model) {
 		User user = (User) sessison.getAttribute("user");
 		Integer userId = user.getId();
-		Order order = service.showShoppingCart(userId);
+		System.out.println("before" + userId);
+		Order order = service.orderHistory(userId);
+		System.out.println("after" + order.getUserId());
 		int subtotalPrice = order.getTotalPrice();
 		int tax = (int) (subtotalPrice * 0.1);
 		int totalPrice = subtotalPrice + tax;
-		System.out.println("合計金額"+totalPrice);
 		if(totalPrice == 0) {
 			model.addAttribute("noItemMessage","カートに商品がありません。");
-		}
+		}	
 		model.addAttribute("order", order);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("tax", tax);
-		return "/order_confirm";
+		
+		return "/order_history";
 	}
 
 }
