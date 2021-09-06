@@ -21,7 +21,7 @@ import jp.co.example.ecommerce_c.service.ShowItemListService;
  *
  */
 @Controller
-@RequestMapping("/showItem")
+@RequestMapping("/")
 public class ShowItemListController {
 
 	@Autowired
@@ -40,7 +40,7 @@ public class ShowItemListController {
 	 * @param model requestスコープ
 	 * @return 商品一覧画面
 	 */
-	@RequestMapping("/showItemList")
+	@RequestMapping("")
 	public String showItemList(Model model, Integer page) {
 		
 		// ページング機能追加
@@ -108,7 +108,7 @@ public class ShowItemListController {
 			page = 1;
 		}
 
-		if (showItemListForm.getName().equals("")) {
+		if (showItemListForm.getName().equalsIgnoreCase("")) {
 			model.addAttribute("errorMessage", "検索結果が1件もありませんでした");
 			showItemList(model,page);
 			return "/item_list_toy";
@@ -157,6 +157,7 @@ public class ShowItemListController {
 	}
 
 	/**
+	 * ソート機能で表示を変える.
 	 * 
 	 * @param model
 	 * @return
