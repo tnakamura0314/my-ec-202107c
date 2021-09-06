@@ -128,7 +128,7 @@
 		<!-- table -->
 		<form action="order_finished.html" method="POST" th:action="@{/order-confirm/order}" th:object="${orderForm}">
 <!-- 		注文一覧表示実装後value属性はth:value="${order.id}"にする -->
-		<input type="hidden" name="id" value="1" th:value="1">
+		<input type="hidden" name="id" value="1" th:value="${order.id}">
 			<div class="row">
 				<div
 					class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
