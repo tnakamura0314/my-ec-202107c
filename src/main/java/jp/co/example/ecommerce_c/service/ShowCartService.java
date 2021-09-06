@@ -55,7 +55,7 @@ public class ShowCartService {
 						orderRepository.updateTotalPrice(order.getId(), totalPrice);
 					}
 				} else if (orderItem.getSize() == 'L') {
-					int toyPriceL = orderItem.getItem().getPriceM();
+					int toyPriceL = orderItem.getItem().getPriceL();
 					totalPrice += toyPriceL * orderItem.getQuantity();
 					if (orderItem.getOrderToppingList() != null) {
 						int toppingPrice = 0;
