@@ -46,11 +46,7 @@ public class OrderController {
 	@RequestMapping("")
 	public String showOrderConfirmation(Model model) {
 		User user = (User) sessison.getAttribute("user");
-		
-		if(user == null) {
-			return "redirect:/login_user";
-		
-		} else {
+	
 		Integer userId = user.getId();
 		Order order = orderConfirmationService.showShoppingCart(userId);
 		int subtotalPrice = order.getTotalPrice();
@@ -61,7 +57,7 @@ public class OrderController {
 		model.addAttribute("tax", tax);
 		
 		return "/order_confirm";
-		}
+		
 	}
 	
 	/**
