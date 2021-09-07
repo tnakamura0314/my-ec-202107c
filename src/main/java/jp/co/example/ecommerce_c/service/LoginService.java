@@ -32,8 +32,11 @@ public class LoginService {
 	 * @return
 	 */
 	public User login(String email, String password ) {
-		
+
 		User user = userRepository.findByMailAddress(email);
+		if(user == null) {
+			return null;
+		}
 		
 		if (passwordEncoder.matches(password, user.getPassword())) {
 

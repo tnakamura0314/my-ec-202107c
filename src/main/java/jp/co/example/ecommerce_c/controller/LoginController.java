@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -52,8 +53,11 @@ public class LoginController {
 	 * @return ログイン後の商品一覧画面
 	 */
 	@RequestMapping("/login_user")
-	public String login_user(LoginForm form, BindingResult result,Model model) {
-		System.out.println(form);
+	public String login_user(@Validated LoginForm form, BindingResult result,Model model) {
+		if(form.getEmail().equals("") || form.getPassword().equals("")) {
+			return toLogin();
+		}
+
 		User user = loginService.login(form.getEmail(), form.getPassword());
 		if (user == null) {
 			model.addAttribute("errorMessage","メールアドレスまたはパスワードが不正です。");
@@ -64,8 +68,4 @@ public class LoginController {
 		session.setAttribute("user", user);
 		return "forward:/";
 	}
-
-//　通常のログインは完成
-//　6.注文確認画面を表示後のログインは後ほど実装
-
 }

@@ -61,12 +61,12 @@
 							<label
 									class="control-label" style="color: red" for="inputError" th:text="${errorMessage}">メールアドレス、またはパスワードが間違っています</label>
 							<div class="form-group">
-								<label for="inputEmail">メールアドレス:</label>
+								<label for="inputEmail">メールアドレス: <span th:errors="*{email}" class="text-danger"></span></label>
 								<input type="text" id="inputEmail" class="form-control"
 									placeholder="Email" name="email" th:field="*{email}">
 							</div>
 							<div class="form-group">
-								<label for="inputPassword">パスワード:</label>
+								<label for="inputPassword">パスワード: <span th:errors="*{password}" class="text-danger"></span></label>
 								<input type="password" id="inputPassword" class="form-control"
 									placeholder="Password" name="password" th:field="*{password}">
 							</div>
