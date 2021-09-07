@@ -84,3 +84,45 @@ div#item {
   opacity: 1;
 }
 
+
+.update-btn{
+	background-color: #00ced1;
+	color: white;
+	border: 1px solid  #00ced1;
+	border-radius: 5px;
+	text-align: center;
+	margin-top:10px;
+	margin-bottom:10px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	font-size: 16px;
+	
+}
+
+.user-detail{
+	display:flex;
+}
+
+.user-detail-table{
+	border-radius: 5px;
+	margin-left:5vw;
+	border:solid 4px #a9a9a9;
+	width:85%;
+	height:35vh;
+	text-align:center;
+	font-size: 17px;
+}
+
+.slider-user-detail{
+	display: flex;
+	text-align: center;
+}
+
+
+.user-detail-img{
+	display:block;
+	justify-content: center;
+	margin: 0 auto;
+	
+}
+
