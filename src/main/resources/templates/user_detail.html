@@ -28,7 +28,7 @@
 					<a class="navbar-brand" href="item_list_pizza.html" th:href="@{/}"> <!-- 企業ロゴ --> <img
 						alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
 					</a>
-					<a th:if="${session.user != null}" class="navbar-brand" href="item_list_pizza.html" th:href="@{/showItem/showItemList}" style="font-size:15px;">
+					<a th:if="${session.user != null}" class="navbar-brand" href="item_list_pizza.html" th:href="@{/user-detail}" style="font-size:15px;">
 					<span th:text="${session.user.name}+さんこんにちは！"></span>
 					</a>
 					<a th:unless="${session.user != null}" th:href="@{/login}" class="navbar-brand" style="font-size:15px;">
@@ -80,7 +80,7 @@
 	
 	<div>
 	  <form th:action="@{/update}" method="post"  class="text-center">
-	    <button class="update-btn" >登録情報の変更</button>
+	    <button class="btn btn-primary" id="update-btn" >登録情報の変更</button>
 	  </form>
 	</div>
 	
