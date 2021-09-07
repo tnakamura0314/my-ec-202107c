@@ -36,7 +36,14 @@ public class OrderController {
 	
 	@ModelAttribute
 	public OrderForm setUpForm() {
-		return new OrderForm();
+		OrderForm form = new OrderForm();
+		User user = (User) sessison.getAttribute("user");
+		form.setDestinationName(user.getName());
+		form.setDestinationEmail(user.getEmail());
+		form.setDestinationZipCode(user.getZipcode());
+		form.setDestinationAddress(user.getAddress());
+		form.setDestinationTel(user.getTelephone());
+		return form;
 	}
 	
 	/**

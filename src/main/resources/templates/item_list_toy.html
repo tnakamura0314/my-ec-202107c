@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ピザ屋のネット注文</title>
+<title>ネットでおもちゃ注文！</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/piza.css}" rel="stylesheet">
 <link th:href="@{/css/sort.css}" rel="stylesheet">
@@ -31,7 +31,7 @@
 						<img alt="main log" th:src="@{/img_toy/header_logo.png}"
 						height="35">
 					</a>
-					<a th:if="${session.user != null}" class="navbar-brand" href="item_list_pizza.html" th:href="@{/showItem/showItemList}" style="font-size:15px;">
+					<a th:if="${session.user != null}" class="navbar-brand" href="item_list_pizza.html" th:href="@{/user-detail}" style="font-size:15px;">
 					<span th:text="${session.user.name}+さんこんにちは！"></span>
 					</a>
 					<a th:unless="${session.user != null}" th:href="@{/login}" class="navbar-brand" style="font-size:15px;">
@@ -45,8 +45,8 @@
 					<p class="navbar-text navbar-right">
 						<a href="cart_list.html" class="navbar-link" th:href="@{/shopping-cart/show}">ショッピングカート</a>&nbsp;&nbsp;
 						<a href="order_history.html" th:href="@{/orderHistory}" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
-						<a href="login.html" class="navbar-link" th:href="@{/login}">ログイン</a>&nbsp;&nbsp;
-						<a href="item_list_pizza.html" class="navbar-link"
+						<a th:if="${session.user == null}" href="login.html" class="navbar-link" th:href="@{/login}">ログイン</a>&nbsp;&nbsp;
+						<a th:unless="${session.user == null}" href="item_list_pizza.html" class="navbar-link"
 							th:href="@{/logout/toLogout}">ログアウト</a>
 					</p>
 				</div>
@@ -125,8 +125,8 @@
 							<a href="item_detail.html" th:href="@{/showDetail/showItemDetail?id=} + ${item.id}"> <img th:src="@{/img_toy/} + ${item.imagePath}" class="img-responsive img-rounded item-img-center item-img-center" width="200" height="600" id="item-img">
 							</a><br>
 							<a href="item_detail.html" th:href="@{/showDetail/showItemDetail?id=} + ${item.id}" th:text="${item.name}">dummy</a><br>
-							<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<span th:text="${item.priceM}">dummy</span>円(税抜)<br>
-							<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;<span th:text="${item.priceL}">dummy</span>円(税抜)<br>
+							<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<span th:text="${#numbers.formatInteger(item.priceM,1,'COMMA')}">dummy</span>円(税抜)<br>
+							<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;<span th:text="${#numbers.formatInteger(item.priceL,1,'COMMA')}">dummy</span>円(税抜)<br>
 							</th>
 						</tr>
 					</tbody>
