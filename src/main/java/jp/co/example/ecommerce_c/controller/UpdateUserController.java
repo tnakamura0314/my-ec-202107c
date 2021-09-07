@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_c.domain.User;
 import jp.co.example.ecommerce_c.form.RegisterUserForm;
+import jp.co.example.ecommerce_c.repository.UserRepository;
 import jp.co.example.ecommerce_c.service.ResisterUserService;
 import jp.co.example.ecommerce_c.service.UpdateUserService;
 
@@ -34,6 +35,9 @@ public class UpdateUserController {
 
 	@Autowired
 	private HttpSession sessison;
+	
+	@Autowired
+	private UserRepository repository;
 
 	@ModelAttribute
 	public RegisterUserForm setUpForm() {
@@ -62,29 +66,32 @@ public class UpdateUserController {
 		if (!(form.getConfirmPassword().equals(form.getPassword()))) {
 			result.rejectValue("confirmPassword", "", "パスワードと確認用パスワードが不一致です。");
 		}
+		
+		User user = (User) sessison.getAttribute("user");
 
-//		// メールアドレス重複チェック
-//		User dupulicateUser = registerUserService.findByMailAddress(form.getEmail());
-//		String dupulicateUserEmail = dupulicateUser.getEmail();
-//
-//		
-//		
-//		if (dupulicateUser != null )  {
-//			
-//			if( dupulicateUserEmail.equals(form.getEmail())) {
-//				
-//				
-//			}else {
-//				result.rejectValue("email", "", "既に登録済みのメールアドレスです。");
-//			}
-//			
-//		}
+		
+
+		User user2 = repository.load(user.getId());
+		
+		if(!(user2.getEmail().equals(form.getEmail()))) {
+			
+			// メールアドレス重複チェック
+			User dupulicateUser = registerUserService.findByMailAddress(form.getEmail());
+			
+			if (dupulicateUser != null )  {
+				
+				result.rejectValue("email", "", "既に登録済みのメールアドレスです。");
+				
+			}
+			
+		}
+		
 
 		if (result.hasErrors()) {
 			return index();
 		}
 
-		User user = (User) sessison.getAttribute("user");
+		
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, user);
 		System.out.println(user);
