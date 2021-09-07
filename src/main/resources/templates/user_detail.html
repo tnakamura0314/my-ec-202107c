@@ -83,13 +83,17 @@
 	  </form>
 	</div>
 	
-	<div>
-	  <form>
-	    <button>退会する</button>
-	  </form>
+	<div class="row">
+		<div class="text-center">
+			<a href="register_user.html" th:href="@{/managementUser/quit}">
+			<button id="delte-user-button" type="button" class="btn btn-danger">退会する</button>
+			</a>
+		</div>
 	</div>
+
 	<!-- end container -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/management_user.js}"></script>
 </body>
 </html>

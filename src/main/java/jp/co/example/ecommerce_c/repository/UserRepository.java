@@ -105,7 +105,7 @@ public class UserRepository {
 		}
 		return userList.get(0);
 	}
-	
+
 	/**
 	 * ユーザー情報を更新します.
 	 * 
@@ -117,7 +117,20 @@ public class UserRepository {
 
 		String updateSql = "UPDATE users SET name=:name, email=:email, password=:password, zipcode=:zipcode, address=:address, telephone=:telephone WHERE id=:id ;";
 		template.update(updateSql, param);
-		
+
+	}
+
+	/**
+	 * ユーザIDからユーザ情報を削除します.
+	 *
+	 * @param id ID
+	 */
+	public void deleteById(Integer id) {
+		String sql = "DELETE FROM users where id=:id";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+
+		template.update(sql, param);
 	}
 
 }
