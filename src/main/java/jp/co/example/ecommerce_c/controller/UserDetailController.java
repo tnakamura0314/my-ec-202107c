@@ -42,7 +42,7 @@ public class UserDetailController {
 		// セッションの切断
 		session.invalidate();
 		deleteUserService.deleteById(userId);
-		return "forward:/login";
+		return "redirect:/login";
 	}
 
 }
