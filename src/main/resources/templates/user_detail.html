@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ネットでおもちゃ注文！</title>
 <link href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet">
+<link th:href="@{/css/piza.css}" rel="stylesheet">
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -52,11 +53,11 @@
 		</nav>
 		
 		<!-- form -->
-	<div>
-	  <table border="1">
-	    <tr>
-	      <th>名前</th>
-	      <td th:text="${session.user.name}">dummy</td>
+	<div class="user-detail">
+	  <table class="user-detail-table" border="1" >
+	    <tr >
+	      <th >名前</th>
+	      <td th:text="${session.user.name}" >dummy</td>
 	    </tr>
 	    <tr>
 	      <th>メールアドレス</th>
@@ -78,8 +79,8 @@
 	</div>
 	
 	<div>
-	  <form th:action="@{/update}" method="post">
-	    <button>登録情報の変更</button>
+	  <form th:action="@{/update}" method="post"  class="text-center">
+	    <button class="update-btn" >登録情報の変更</button>
 	  </form>
 	</div>
 	
@@ -90,6 +91,10 @@
 			</a>
 		</div>
 	</div>
+	
+	<div class="slider-user-detail">
+	  <img src="../img_toy/image.jpg" class="user-detail-img">
+	  </div>
 
 	<!-- end container -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
