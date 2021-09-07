@@ -105,5 +105,19 @@ public class UserRepository {
 		}
 		return userList.get(0);
 	}
+	
+	/**
+	 * ユーザー情報を更新します.
+	 * 
+	 * @param user
+	 */
+	public void update(User user) {
+		
+		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+
+		String updateSql = "UPDATE users SET name=:name, email=:email, password=:password, zipcode=:zipcode, address=:address, telephone=:telephone WHERE id=:id ;";
+		template.update(updateSql, param);
+		
+	}
 
 }
