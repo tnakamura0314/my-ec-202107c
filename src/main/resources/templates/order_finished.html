@@ -29,7 +29,7 @@
 						<img alt="main log" th:src="@{/img_toy/header_logo.png}"
 						height="35">
 					</a>
-					<a th:if="${session.user != null}" class="navbar-brand" href="item_list_pizza.html" th:href="@{/showItem/showItemList}" style="font-size:15px;">
+					<a th:if="${session.user != null}" class="navbar-brand" href="item_list_pizza.html" th:href="@{/user-detail}" style="font-size:15px;">
 					<span th:text="${session.user.name}+さんこんにちは！"></span>
 					</a>
 					<a th:unless="${session.user != null}" th:href="@{/login}" class="navbar-brand" style="font-size:15px;">
@@ -68,7 +68,7 @@
 
 		<br><br>
 		<div class="row">
-			<div class="col-xs-offset-5 col-xs-2">
+			<div class="col-xs-offset-5 col-xs-3">
 				<div class="form-group">
 					<form action="order_finished.html" th:action="@{/}">
 						<input class="form-control btn btn-warning btn-block"

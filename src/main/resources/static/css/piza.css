@@ -85,17 +85,12 @@ div#item {
 }
 
 
-.update-btn{
-	background-color: #00ced1;
-	color: white;
-	border: 1px solid  #00ced1;
-	border-radius: 5px;
-	text-align: center;
+#update-btn{
+	
 	margin-top:10px;
 	margin-bottom:10px;
 	padding-top: 7px;
 	padding-bottom: 7px;
-	font-size: 16px;
 	
 }
 
