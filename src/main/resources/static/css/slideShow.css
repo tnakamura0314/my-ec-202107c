@@ -1,18 +1,14 @@
 @charset "UTF-8";
 
 .slider {
-	height: auto; /* 高さ指定 */
-	width: 200px; /* 幅指定 */
+	height: center; /* 高さ指定 */
+	width: 55%; /* 幅指定 */
 	position: absolute; /* 位置指定 */
 	z-index: -1; /* 重なり順指定 */
+	/* ボックス配置指定 */
+	position: relative;
+	margin: 0 auto;
+	background-size: cover;
 }
 
-.image5{
-	height: auto; /* 高さ指定 */
-	width: 200px; /* 幅指定 */
-	position: absolute; /* 位置指定 */
-	z-index: -1; /* 重なり順指定 */
-	
-	background-position: 50% 10%;
-	
-}
+
