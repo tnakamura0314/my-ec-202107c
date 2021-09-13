@@ -172,13 +172,13 @@ public class ItemRepository {
 
 					String[] data = line.split(","); // 行をカンマ区切りで配列に変換
 
-//					System.out.println(data[0]);
-//					System.out.println(data[1]);
-//					System.out.println(data[2]);
-//					System.out.println(data[3]);
-//					System.out.println(data[4]);
-//					System.out.println(data[5]);
-//					System.out.println(data[6]);
+					System.out.println(data[0]);
+					System.out.println(data[1]);
+					System.out.println(data[2]);
+					System.out.println(data[3]);
+					System.out.println(data[4]);
+					System.out.println(data[5]);
+					System.out.println(data[6]);
 
 					stmts.setInt(1, Integer.parseInt(data[0]));
 					stmts.setString(2, data[1]);
