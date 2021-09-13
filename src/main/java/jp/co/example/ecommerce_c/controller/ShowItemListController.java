@@ -50,11 +50,14 @@ public class ShowItemListController {
 		}
 
 		List<Item> itemList = service.showItemList();
+		
+		
 
 		// 表示させたいページ数、ページサイズ、商品リストを渡し１ページに表示させる商品リストを絞り込み
 		Page<Item> itemPage = service.showListPaging(page, VIEW_SIZE, itemList);
 
 		model.addAttribute("itemPage", itemPage);
+		
 
 		List<List<Item>> itemList3 = new ArrayList<>();
 		List<Item> itemList2 = new ArrayList<>();
@@ -70,6 +73,12 @@ public class ShowItemListController {
 				itemList2 = new ArrayList<>();
 			}
 		}
+		
+		if(roopCount % 3 != 0) {
+			itemList3.add(itemList2);
+		}
+		
+		
 
 		model.addAttribute("itemList3", itemList3);
 		//オートコンプリート実装のため追加しました。（金子）
